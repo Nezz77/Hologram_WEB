@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fusion 5 - Assembly</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Style Guidance -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "surface-container-highest": "#353535",
+                    "on-primary": "#00363d",
+                    "surface-container-high": "#2a2a2a",
+                    "on-tertiary-fixed-variant": "#474646",
+                    "on-tertiary-container": "#5a5959",
+                    "on-primary-fixed": "#001f24",
+                    "secondary-container": "#ff562c",
+                    "inverse-surface": "#e5e2e1",
+                    "on-background": "#e5e2e1",
+                    "tertiary-container": "#d3d0cf",
+                    "on-secondary-container": "#560e00",
+                    "surface-tint": "#00daf3",
+                    "secondary-fixed": "#ffdad2",
+                    "surface-container-low": "#1c1b1b",
+                    "secondary": "#ffb4a2",
+                    "surface-bright": "#393939",
+                    "on-error": "#690005",
+                    "surface-container-lowest": "#0e0e0e",
+                    "tertiary-fixed": "#e5e2e1",
+                    "secondary-fixed-dim": "#ffb4a2",
+                    "on-secondary": "#621100",
+                    "primary-fixed-dim": "#00daf3",
+                    "outline": "#849396",
+                    "primary": "#c3f5ff",
+                    "on-surface-variant": "#bac9cc",
+                    "background": "#131313",
+                    "inverse-on-surface": "#313030",
+                    "on-tertiary": "#313030",
+                    "inverse-primary": "#006875",
+                    "primary-container": "#00e5ff",
+                    "on-secondary-fixed-variant": "#8a1d00",
+                    "on-secondary-fixed": "#3c0700",
+                    "error": "#ffb4ab",
+                    "on-error-container": "#ffdad6",
+                    "outline-variant": "#3b494c",
+                    "on-surface": "#e5e2e1",
+                    "tertiary": "#f0ecec",
+                    "surface-dim": "#131313",
+                    "on-primary-container": "#00626e",
+                    "tertiary-fixed-dim": "#c9c6c5",
+                    "surface-variant": "#353535",
+                    "on-primary-fixed-variant": "#004f58",
+                    "surface-container": "#20201f",
+                    "primary-fixed": "#9cf0ff",
+                    "surface": "#131313"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-md": ["Inter"],
+                    "code-md": ["JetBrains Mono"],
+                    "headline-sm": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "code-md": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Engineering Grid Pattern mapped from tokens */
+        body {
+            background-color: #0A0A0A; /* Level 0 Base */
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+            background-position: center top;
+        }
+        
+        /* Glassmorphism Panel */
+        .tech-panel {
+            background-color: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.05), inset 0 0 20px rgba(0, 229, 255, 0.02);
+        }
+
+        /* Technical Callout Line */
+        .callout-line {
+            position: relative;
+        }
+        .callout-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            width: 16px;
+            height: 1px;
+            background-color: #00daf3; /* surface-tint */
+        }
+        .callout-node {
+            width: 6px;
+            height: 6px;
+            background-color: #00daf3;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+        }
+
+        /* Blueprint Notch Corners */
+        .notched {
+            clip-path: polygon(
+                12px 0, 100% 0, 
+                100% calc(100% - 12px), calc(100% - 12px) 100%, 
+                0 100%, 0 12px
+            );
+        }
+        
+        /* Custom Scrollbar for tables */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b494c;
+        }
+    </style>
+</head>
+<body class="text-on-surface antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="bg-background/70 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-primary/20 transition-all duration-300 ease-out flex justify-between items-center px-margin-desktop h-16 w-full">
+<div class="font-headline-sm text-headline-sm font-bold text-primary tracking-tighter">
+            Fusion 5
+        </div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Overview</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-primary border-b-2 border-primary pb-1 hover:bg-primary/10 px-3 py-1 rounded shadow-[0_4px_12px_rgba(0,229,255,0.15)]" href="#">Assembly</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Electronics</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Safety</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Team</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Supervisor</a>
+</div>
+<button class="font-label-caps text-label-caps uppercase text-background bg-primary hover:bg-primary-container transition-colors px-4 py-2 flex items-center gap-2 notched shadow-[0_0_15px_rgba(0,229,255,0.3)]">
+            Documentation
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</nav>
+<!-- Main Workspace -->
+<main class="flex-grow pt-[100px] pb-12 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter z-10">
+<!-- Header Section -->
+<header class="md:col-span-12 mb-8 border-b border-surface-tint/20 pb-4 flex justify-between items-end">
+<div>
+<p class="font-code-md text-code-md text-surface-tint mb-2 tracking-widest uppercase text-xs">PHASE 2 / MECHANICAL</p>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tighter drop-shadow-[0_0_8px_rgba(0,229,255,0.3)]">EXPLODED ASSEMBLY</h1>
+</div>
+<div class="hidden md:flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined text-surface-tint" style="font-variation-settings: 'FILL' 1; text-shadow: 0 0 10px rgba(0,229,255,0.5);">precision_manufacturing</span>
+<span class="font-code-md text-code-md tracking-widest text-sm text-surface-tint">SYS-STAT: ONLINE</span>
+</div>
+</header>
+<!-- Left / Center Viewport (3D & Image context) -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- Interactive 3D Viewport placeholder container -->
+<div class="tech-panel notched h-[500px] w-full relative flex flex-col group">
+<div class="absolute top-0 right-0 p-2 font-code-md text-[10px] tracking-widest text-surface-tint border-b border-l border-surface-tint/30 bg-surface-tint/10 backdrop-blur-sm z-20">
+                    ID: VIEW-3D-EXP
+                </div>
+<!-- The 3D placeholder iframe -->
+<div class="flex-grow w-full relative overflow-hidden notched">
+<iframe class="absolute inset-0 w-full h-full border-0 grayscale opacity-80 contrast-125 mix-blend-screen group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700" src="{{DATA:SCREEN:SCREEN_4}}" title="3D Exploded View"></iframe>
+<!-- Simulated targeting reticle for engineering feel -->
+<div class="absolute inset-0 pointer-events-none border border-surface-tint/30 m-4 z-10">
+<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-surface-tint shadow-[0_0_10px_rgba(0,229,255,0.4)]"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-surface-tint shadow-[0_0_10px_rgba(0,229,255,0.4)]"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-surface-tint shadow-[0_0_10px_rgba(0,229,255,0.4)]"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-surface-tint shadow-[0_0_10px_rgba(0,229,255,0.4)]"></div>
+<!-- HUD Overlays -->
+<div class="absolute top-[20%] left-0 w-12 h-[1px] bg-surface-tint/60"></div>
+<div class="absolute top-[20%] left-14 font-code-md text-[10px] text-surface-tint tracking-widest bg-black/40 px-1">Z-AXIS: 145.2mm</div>
+<div class="absolute bottom-[30%] right-0 w-16 h-[1px] bg-surface-tint/60"></div>
+<div class="absolute bottom-[30%] right-18 font-code-md text-[10px] text-surface-tint tracking-widest bg-black/40 px-1 text-right">TOLERANCE: ±0.05</div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-surface-tint/40 flex items-center justify-center">
+<div class="w-1 h-1 bg-surface-tint rounded-full shadow-[0_0_5px_rgba(0,229,255,0.8)]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Static Reference Image Panel -->
+<div class="tech-panel p-5 notched flex flex-col md:flex-row gap-6 items-start hover:border-surface-tint/40 transition-colors">
+<div class="w-full md:w-1/3 border border-surface-tint/20 p-2 bg-surface-container-lowest relative group overflow-hidden shadow-[inset_0_0_15px_rgba(0,229,255,0.05)]">
+<div class="absolute top-0 left-0 bg-surface-tint/80 backdrop-blur-sm text-background font-code-md font-bold text-[10px] px-2 py-0.5 tracking-wider z-10">REF IMG</div>
+<img alt="Reference Image" class="w-full h-auto object-cover opacity-70 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-500 border border-surface-tint/10" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3 flex items-center gap-2 drop-shadow-[0_0_5px_rgba(0,229,255,0.2)]">
+<span class="material-symbols-outlined text-[22px] text-surface-tint">visibility</span> Reference Context
+                    </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-5 font-light leading-relaxed">
+                        Orthographic projection reference for spatial alignment of the primary motor housing and base plate structural supports.
+                    </p>
+<div class="flex gap-4">
+<button class="font-code-md text-[11px] tracking-widest font-bold text-surface-tint border border-surface-tint/50 bg-surface-tint/5 hover:bg-surface-tint/20 hover:border-surface-tint px-5 py-2.5 transition-all duration-300 notched shadow-[0_0_10px_rgba(0,229,255,0.1)]">
+                            DOWNLOAD HI-RES
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar (BOM & Component Details) -->
+<div class="md:col-span-4 flex flex-col gap-gutter h-full">
+<!-- Bill of Materials Table -->
+<div class="tech-panel notched flex flex-col flex-grow max-h-[800px] border-surface-tint/30">
+<div class="p-5 border-b border-surface-tint/20 bg-surface-tint/5 flex justify-between items-center backdrop-blur-md">
+<h2 class="font-headline-sm text-xl text-primary tracking-tight drop-shadow-[0_0_5px_rgba(0,229,255,0.3)]">BILL OF MATERIALS</h2>
+<span class="font-code-md text-xs font-bold tracking-widest text-background bg-surface-tint px-3 py-1 shadow-[0_0_10px_rgba(0,229,255,0.4)]">QTY: 7</span>
+</div>
+<div class="overflow-x-auto p-5 flex-grow">
+<table class="w-full text-left border-collapse font-code-md text-sm">
+<thead class="bg-surface-tint/10 text-surface-tint border-b border-surface-tint/30">
+<tr>
+<th class="p-3 font-bold tracking-widest text-xs uppercase">ID</th>
+<th class="p-3 font-bold tracking-widest text-xs uppercase">PART NAME</th>
+<th class="p-3 font-bold tracking-widest text-xs uppercase text-center">QTY</th>
+</tr>
+</thead>
+<tbody class="text-on-surface-variant divide-y divide-surface-tint/10">
+<tr class="hover:bg-surface-tint/10 transition-colors group cursor-crosshair">
+<td class="p-3 text-primary/80 group-hover:text-surface-tint group-hover:font-bold transition-all">P-001</td>
+<td class="p-3 group-hover:text-white transition-colors">Bottom Cover</td>
+<td class="p-3 text-center text-surface-tint font-bold">1</td>
+</tr>
+<tr class="hover:bg-surface-tint/10 transition-colors group cursor-crosshair bg-white/[0.01]">
+<td class="p-3 text-primary/80 group-hover:text-surface-tint group-hover:font-bold transition-all">P-002</td>
+<td class="p-3 group-hover:text-white transition-colors">Motor Plate</td>
+<td class="p-3 text-center text-surface-tint font-bold">1</td>
+</tr>
+<tr class="hover:bg-surface-tint/10 transition-colors group cursor-crosshair">
+<td class="p-3 text-primary/80 group-hover:text-surface-tint group-hover:font-bold transition-all">M-2212</td>
+<td class="p-3 text-primary group-hover:text-surface-tint font-bold transition-colors">A2212 Motor</td>
+<td class="p-3 text-center text-surface-tint font-bold">4</td>
+</tr>
+<tr class="hover:bg-surface-tint/10 transition-colors group cursor-crosshair bg-white/[0.01]">
+<td class="p-3 text-primary/80 group-hover:text-surface-tint group-hover:font-bold transition-all">H-010</td>
+<td class="p-3 group-hover:text-white transition-colors">Main Shaft</td>
+<td class="p-3 text-center text-surface-tint font-bold">1</td>
+</tr>
+<tr class="hover:bg-surface-tint/10 transition-colors group cursor-crosshair">
+<td class="p-3 text-primary/80 group-hover:text-surface-tint group-hover:font-bold transition-all">H-015</td>
+<td class="p-3 group-hover:text-white transition-colors">Spacer (Nylon)</td>
+<td class="p-3 text-center text-surface-tint font-bold">8</td>
+</tr>
+<tr class="hover:bg-surface-tint/10 transition-colors group cursor-crosshair bg-white/[0.01]">
+<td class="p-3 text-primary/80 group-hover:text-surface-tint group-hover:font-bold transition-all">P-003</td>
+<td class="p-3 group-hover:text-white transition-colors">Coil Holders</td>
+<td class="p-3 text-center text-surface-tint font-bold">4</td>
+</tr>
+<tr class="hover:bg-surface-tint/10 transition-colors group cursor-crosshair border-b-2 border-b-surface-tint/50">
+<td class="p-3 text-primary/80 group-hover:text-surface-tint group-hover:font-bold transition-all">E-050</td>
+<td class="p-3 group-hover:text-white transition-colors">LED PCB Array</td>
+<td class="p-3 text-center text-surface-tint font-bold">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sub-Component Highlights -->
+<div class="p-5 border-t border-surface-tint/20 bg-surface-tint/5">
+<h3 class="font-code-md text-xs font-bold tracking-widest text-surface-tint mb-4 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span> CRITICAL SUB-SYSTEMS
+</h3>
+<div class="flex flex-col gap-4">
+<div class="pl-4 border-l-2 border-surface-tint/40 hover:border-surface-tint bg-black/20 p-2 transition-all cursor-pointer group">
+<div class="font-code-md text-sm font-bold text-primary group-hover:text-surface-tint flex items-center gap-2 drop-shadow-[0_0_3px_rgba(0,229,255,0.5)]">
+<div class="w-1.5 h-1.5 bg-surface-tint shadow-[0_0_8px_rgba(0,229,255,0.8)]"></div> A2212 Motor Integration
+                            </div>
+<div class="font-code-md text-[12px] text-on-surface-variant/80 mt-1.5 line-clamp-2 leading-relaxed">
+                                Ensure proper torque specs on the Motor Plate mounting screws to prevent vibration during high-RPM operation.
+                            </div>
+</div>
+<div class="pl-4 border-l-2 border-surface-tint/40 hover:border-surface-tint bg-black/20 p-2 transition-all cursor-pointer group">
+<div class="font-code-md text-sm font-bold text-primary group-hover:text-surface-tint flex items-center gap-2 drop-shadow-[0_0_3px_rgba(0,229,255,0.5)]">
+<div class="w-1.5 h-1.5 bg-surface-tint shadow-[0_0_8px_rgba(0,229,255,0.8)]"></div> LED PCB Alignment
+                            </div>
+<div class="font-code-md text-[12px] text-on-surface-variant/80 mt-1.5 line-clamp-2 leading-relaxed">
+                                Align spacer tabs precisely with the bottom cover slots to maintain structural integrity of the electronic housing.
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest/90 backdrop-blur-md border-t border-surface-tint/20 w-full flex flex-col md:flex-row justify-between items-center px-margin-desktop py-6 mt-auto z-10 relative">
+<div class="font-code-md text-xs tracking-widest text-on-surface/60 hover:text-surface-tint transition-all duration-300 ease-out mb-4 md:mb-0">
+            © 2024 University of Moratuwa | Fusion 5 Engineering Division
+        </div>
+<div class="flex gap-6 font-code-md text-xs tracking-widest text-on-surface/60">
+<a class="hover:text-surface-tint transition-colors" href="#">Institutional Branding</a>
+<a class="hover:text-surface-tint transition-colors" href="#">Research Lab</a>
+<a class="hover:text-surface-tint transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-surface-tint transition-colors" href="#">Contact</a>
+</div>
+</footer>
+</body></html>

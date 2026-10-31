@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fusion 5 - Holographic POV Display</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#d3d0cf",
+                        "surface": "#050505",
+                        "surface-bright": "#1a1a1a",
+                        "surface-container-high": "#111111",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#9cf0ff",
+                        "tertiary-fixed": "#e5e2e1",
+                        "background": "#020202",
+                        "surface-container": "#0a0a0a",
+                        "inverse-surface": "#e5e2e1",
+                        "on-surface-variant": "#bac9cc",
+                        "primary-container": "#00e5ff",
+                        "on-secondary-fixed": "#3c0700",
+                        "surface-tint": "#00daf3",
+                        "on-tertiary": "#313030",
+                        "surface-container-highest": "#1a1a1a",
+                        "primary": "#00e5ff",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-tertiary-container": "#5a5959",
+                        "tertiary": "#f0ecec",
+                        "on-primary-fixed": "#001f24",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-container": "#00626e",
+                        "on-secondary": "#621100",
+                        "error": "#ff3333",
+                        "on-error": "#690005",
+                        "surface-variant": "#111111",
+                        "tertiary-fixed-dim": "#c9c6c5",
+                        "inverse-primary": "#006875",
+                        "secondary-fixed": "#ffdad2",
+                        "on-primary-fixed-variant": "#004f58",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "on-surface": "#ffffff",
+                        "secondary-fixed-dim": "#ffb4a2",
+                        "secondary-container": "#ff562c",
+                        "outline-variant": "#3b494c",
+                        "on-secondary-container": "#560e00",
+                        "surface-container-low": "#080808",
+                        "surface-dim": "#050505",
+                        "secondary": "#ffb4a2",
+                        "on-primary": "#000000",
+                        "surface-container-lowest": "#000000",
+                        "outline": "#4a5d60",
+                        "on-tertiary-fixed-variant": "#474646",
+                        "on-secondary-fixed-variant": "#8a1d00"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "headline-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "code-md": ["JetBrains Mono", "monospace"],
+                        "display-lg": ["Inter", "sans-serif"],
+                        "label-caps": ["JetBrains Mono", "monospace"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "code-md": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "display-lg": ["56px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }]
+                    },
+                    keyframes: {
+                        scanline: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.5 }
+                        }
+                    },
+                    animation: {
+                        scanline: 'scanline 8s linear infinite',
+                        pulseGlow: 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #020202;
+            color: #ffffff;
+        }
+        .tech-grid-bg {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 229, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 229, 255, 0.07) 1px, transparent 1px);
+        }
+        .glass-card {
+            background-color: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.03) inset;
+        }
+        .tech-border {
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            position: relative;
+        }
+        .tech-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid #00e5ff;
+            border-left: 2px solid #00e5ff;
+        }
+        .tech-border::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 8px;
+            height: 8px;
+            border-bottom: 2px solid #00e5ff;
+            border-right: 2px solid #00e5ff;
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(0, 229, 255, 0.5), transparent);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="font-body-md bg-background text-on-surface antialiased tech-grid-bg min-h-screen flex flex-col relative overflow-x-hidden">
+<div class="scanline animate-scanline"></div>
+<!-- Top Navigation -->
+<header class="bg-background/80 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-primary/30 flex justify-between items-center px-margin-desktop py-4 shadow-[0_4px_30px_rgba(0,229,255,0.1)]">
+<div class="flex items-center gap-6">
+<span class="font-display-lg text-headline-sm tracking-tighter text-primary uppercase glow-text">FUSION 5</span>
+<div class="hidden lg:flex items-center gap-2 border border-primary/40 rounded-full px-3 py-1 bg-primary/5">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulseGlow shadow-[0_0_8px_#00e5ff]"></div>
+<span class="font-code-md text-[10px] text-primary uppercase tracking-widest">System Status: Online</span>
+</div>
+</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps uppercase hover:bg-primary/10 transition-all px-2 py-1" href="#overview">Overview</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps uppercase hover:bg-primary/10 transition-all px-2 py-1" href="#assembly">Assembly</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps uppercase hover:bg-primary/10 transition-all px-2 py-1" href="#electronics">Electronics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps uppercase hover:bg-primary/10 transition-all px-2 py-1" href="#safety">Safety</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps uppercase hover:bg-primary/10 transition-all px-2 py-1" href="#team">Team</a>
+</nav>
+<div class="flex gap-4 items-center">
+<span class="font-code-md text-xs text-primary/50 hidden sm:inline-block border-r border-primary/20 pr-4">IN1901_ENV</span>
+<button class="hover:bg-primary/20 transition-all border border-primary/30 rounded-sm p-2 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+<button class="hover:bg-primary/20 transition-all border border-primary/30 rounded-sm p-2 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[80px]">
+<!-- Hero Section -->
+<section class="relative min-h-[90vh] flex items-center justify-center px-margin-desktop py-24 overflow-hidden border-b border-primary/20" id="overview">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+<div class="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-2 text-primary font-code-md text-xs tracking-[0.2em]">
+<span class="w-12 h-[2px] bg-primary shadow-[0_0_8px_#00e5ff]"></span>
+                        INIT // DEPLOYMENT_SEQ_01
+                    </div>
+<h1 class="font-display-lg text-display-lg text-white uppercase leading-[1.05] tracking-tight">
+                        FUSION 5: <br/>
+<span class="text-primary glow-text">DUAL-FAN HOLOGRAPHIC POV DISPLAY</span>
+</h1>
+<p class="font-code-md text-body-lg text-on-surface-variant max-w-xl border-l-2 border-primary/30 pl-4 py-1 bg-gradient-to-r from-primary/5 to-transparent">
+                        Synchronized persistence-of-vision technology for immersive 3D visualization. Precision engineered for high-fidelity spatial data rendering. IN1901 Specification compliant.
+                    </p>
+<div class="flex gap-6 mt-6">
+<button class="bg-primary text-black px-8 py-4 font-code-md text-sm font-bold uppercase hover:bg-white hover:text-black transition-all flex items-center gap-3 shadow-[0_0_20px_rgba(0,229,255,0.4)]">
+                            Initialize Core <span class="material-symbols-outlined text-lg">power_settings_new</span>
+</button>
+<button class="glass-card text-primary px-8 py-4 font-code-md text-sm uppercase hover:bg-primary/10 transition-all border border-primary/50">
+                            View Specs <span class="material-symbols-outlined text-lg align-middle ml-2">data_object</span>
+</button>
+</div>
+</div>
+<div class="relative flex justify-center items-center">
+<div class="absolute inset-0 bg-primary/10 rounded-full blur-[120px] -z-10 animate-pulseGlow"></div>
+<div class="glass-card p-6 relative tech-border w-full">
+<div class="absolute top-0 left-0 w-full flex justify-between px-4 py-2 border-b border-primary/20 bg-primary/5">
+<span class="font-code-md text-[10px] text-primary">ASY-001 // RENDER_VIEW</span>
+<span class="font-code-md text-[10px] text-primary animate-pulse">REC</span>
+</div>
+<img alt="Fusion 5 Assembled" class="w-full max-w-lg mx-auto object-contain mt-8 filter contrast-125 saturate-150 drop-shadow-[0_0_15px_rgba(0,229,255,0.2)]" data-alt="Fully assembled Fusion 5 dual-fan holographic display unit on a sleek black metal frame with glowing LED base, showcasing persistence of vision technology in a dark studio setting with stark high-contrast lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU9lZlAc1GzH8cIIu7jmfHZV42PT0O_xUs0rWLusDFe1TiU9e3xq4Oq9c2EE1q1EDDPzAoaP9hWbBsbRh3G7F_ljau7EDB8OXDUEYEm6bC4hBPze1FyT1NMUhftKx1p7GNHmYUC6c0FkBIGvrePC0kgYgCQBNJt4DCaohpz9xLUsYPNeYWtBws-2qngQvLSDJp_HuIMb0SESUSsSHzeUXjxC4PlQW8uY2GYinjMuqJl3kpFnNcg6Jdc6z3k2ADBR6EkB4"/>
+</div>
+</div>
+</div>
+</section>
+<!-- 3D Visualization & Assembly Section -->
+<section class="relative py-24 px-margin-desktop border-b border-primary/20" id="assembly">
+<div class="max-w-7xl mx-auto">
+<div class="mb-12 border-b border-primary/20 pb-6">
+<div class="font-code-md text-primary text-xs tracking-widest mb-2">SYS.ARCH // PHASE 01</div>
+<h2 class="font-headline-md text-headline-md text-white uppercase glow-text">Precision Engineering &amp; Assembly</h2>
+<p class="font-code-md text-on-surface-variant mt-2 max-w-2xl text-sm">Exploded schematic view of the core structural components and rotational assembly.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Component List -->
+<div class="col-span-1 lg:col-span-4 glass-card p-6 flex flex-col gap-3 max-h-[600px] overflow-y-auto custom-scrollbar tech-border">
+<div class="font-code-md text-primary border-b border-primary/30 pb-3 mb-3 text-sm tracking-wider uppercase">BOM // Structural Elements</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">01. Bottom Cover</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">02. Bottom Part</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">03. Motor Plate</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">04. Motor Mount</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">05. Bottom Coil Holder</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">06. Top Coil Holder</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">07. Corner Cap</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-bright/30 border border-primary/10 hover:border-primary/50 hover:bg-primary/5 cursor-pointer transition-all group">
+<span class="font-code-md text-white text-xs group-hover:text-primary transition-colors">08. Spacer</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-primary text-sm">precision_manufacturing</span>
+</div>
+</div>
+<!-- 3D Viewer Area -->
+<div class="col-span-1 lg:col-span-8 relative h-[600px] glass-card tech-border flex items-center justify-center overflow-hidden bg-[#0a0f12]">
+<!-- CAD Grid Background -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(0,229,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,229,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+<div class="absolute inset-0 bg-[linear-gradient(rgba(0,229,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,229,255,0.1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+<div class="absolute top-4 left-4 bg-background/80 border border-primary/30 px-3 py-1 flex items-center gap-2 z-20">
+<span class="w-2 h-2 bg-primary rounded-full animate-pulseGlow"></span>
+<span class="font-code-md text-primary text-xs tracking-wider">VIEWPORT_3D // ACTIVE</span>
+</div>
+<!-- Reference Image Fallback/Context -->
+<div class="absolute inset-8 opacity-40 mix-blend-screen flex items-center justify-center pointer-events-none filter sepia hue-rotate-[180deg] saturate-[200%] contrast-150">
+<img alt="3D Reference View" class="w-full h-full object-contain" data-alt="Technical 3D render schematic showing various dissembled parts like bottom cover, motor plate, and coil holders in neutral gray tones against a dark background with yellow callout text." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeXdy8u_ydU41Zt6G70mGtknxV6LBIXAYhq4o8nU5QPP2wQDLMMdNumiAyQHnaqLqiUa_38Iwnp8_NC8FXN_WaGpuG2qT9OYUhPF8XDt20JKh6-6itEtvcLac--MqSSx1NZ82rzuhUzFUdhAsg4sO0_tdi1IgX8aQJpHUQtmocBcU8kaCMynCr_Qx9CHxuXb-kzS82TtKtQF9fxJsANw1tAxQoA3WZrGqxcKQE7frQ1vI145m3dyd6hkSU0JaYixkJ3ZQ"/>
+</div>
+<!-- Interactive 3D Canvas (Placeholder for ThreeJS scene) -->
+<div class="absolute inset-0 w-full h-full z-10 cursor-crosshair"></div>
+<!-- Crosshairs -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center z-10 opacity-30">
+<div class="w-full h-[1px] bg-primary"></div>
+<div class="h-full w-[1px] bg-primary absolute"></div>
+<div class="w-12 h-12 border border-primary rounded-full absolute"></div>
+</div>
+<!-- Overlay UI -->
+<div class="absolute bottom-4 right-4 flex flex-col gap-2 z-20">
+<div class="font-code-md text-[10px] text-primary/70 text-right mb-1">AXIS_CTRL</div>
+<div class="flex gap-2">
+<button class="bg-background/80 border border-primary/50 p-3 text-primary hover:bg-primary hover:text-black transition-colors">
+<span class="material-symbols-outlined text-sm">zoom_in</span>
+</button>
+<button class="bg-background/80 border border-primary/50 p-3 text-primary hover:bg-primary hover:text-black transition-colors">
+<span class="material-symbols-outlined text-sm">zoom_out</span>
+</button>
+<button class="bg-background/80 border border-primary/50 p-3 text-primary hover:bg-primary hover:text-black transition-colors">
+<span class="material-symbols-outlined text-sm">360</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Electronics Section -->
+<section class="relative py-24 px-margin-desktop border-b border-primary/20" id="electronics">
+<div class="max-w-7xl mx-auto">
+<div class="mb-12 flex justify-between items-end border-b border-primary/20 pb-6">
+<div>
+<div class="font-code-md text-primary text-xs tracking-widest mb-2">ELEC.ENG // PHASE 02</div>
+<h2 class="font-headline-md text-headline-md text-white uppercase glow-text">Electronic Architecture</h2>
+<p class="font-code-md text-on-surface-variant mt-2 text-sm">Core processing logic and power distribution schematics.</p>
+</div>
+<span class="font-code-md text-primary bg-primary/10 border border-primary/40 px-4 py-2 text-xs tracking-widest shadow-[0_0_10px_rgba(0,229,255,0.1)_inset]">SYS_LOGIC_V1.2</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Block Diagram -->
+<div class="lg:col-span-8 glass-card p-2 relative tech-border group bg-[#020508]">
+<div class="absolute top-0 left-0 w-full flex justify-between px-4 py-2 border-b border-primary/20 bg-primary/5 z-20">
+<span class="font-code-md text-[10px] text-primary">SCHEMATIC_VIEW</span>
+</div>
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"></div>
+<img alt="Detailed block diagram schematic outlining the electronic connections between ESP32 microcontrollers, ESCs, BLDC motors, and hall sensors in a highly technical dark mode interface." class="w-full h-auto mt-8 relative z-0 filter invert hue-rotate-180 brightness-150 contrast-125 mix-blend-screen opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc9i07xGexkN2VAOouMjlXI9HzXsuij-YarY8hcwtk2FXTKTCgUzFA9iAMQ3wwpGH8b_9tLGi_Ky-L7CfLEKNK5a3iMc1rkf3GaFpuePK91Q3Qs8riT7gCO1ZKPcijZJbk-VqMcB2tAkTCzUEBe65WeuVmtUTi10rWJs7NWsJ0lpYTb2i-dgewvx_RMSQWo56-uGvDcxOQC69f_b9gi700WiHgs1-Pq6m7ZRwfnndK0P_dIwY0Meiehra68C1eubKGqMY"/>
+</div>
+<!-- Component Specs -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<div class="glass-card p-6 tech-border border-l-4 border-l-primary hover:bg-primary/5 transition-colors relative overflow-hidden">
+<div class="absolute right-0 top-0 w-32 h-32 bg-primary/10 rounded-full blur-[40px] -mr-16 -mt-16"></div>
+<div class="flex items-start justify-between mb-4 relative z-10">
+<h3 class="font-code-md text-primary text-sm tracking-wider uppercase">Main Controller</h3>
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+<p class="font-code-md text-xl font-bold text-white relative z-10">ESP32-S3 N16R8</p>
+<p class="font-code-md text-on-surface-variant text-xs mt-3 leading-relaxed relative z-10">Dual-core processing unit handling high-speed image slice parsing and Wi-Fi synchronization.</p>
+</div>
+<div class="glass-card p-6 tech-border hover:bg-primary/5 transition-colors">
+<div class="flex items-start justify-between mb-4">
+<h3 class="font-code-md text-primary text-sm tracking-wider uppercase">Drive System</h3>
+<span class="material-symbols-outlined text-primary">settings_motion_mode</span>
+</div>
+<p class="font-code-md text-xl font-bold text-white">A2212 BLDC Motor</p>
+<p class="font-code-md text-on-surface-variant text-xs mt-3 leading-relaxed">High KV rating brushless motors paired with 30A ESCs for consistent high-RPM stability.</p>
+</div>
+<div class="glass-card p-6 tech-border hover:bg-primary/5 transition-colors">
+<div class="flex items-start justify-between mb-4">
+<h3 class="font-code-md text-primary text-sm tracking-wider uppercase">Position Tracking</h3>
+<span class="material-symbols-outlined text-primary">track_changes</span>
+</div>
+<p class="font-code-md text-xl font-bold text-white">Hall Effect Sensor</p>
+<p class="font-code-md text-on-surface-variant text-xs mt-3 leading-relaxed">Provides precise RPM feedback and zero-index homing for frame synchronization.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Safety & Interim Build Section -->
+<section class="relative py-24 px-margin-desktop border-b border-primary/20 bg-surface-container/50" id="safety">
+<div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,51,51,0.02)_10px,rgba(255,51,51,0.02)_20px)] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto relative z-10">
+<div class="mb-12 border-b border-error/20 pb-6">
+<div class="font-code-md text-error text-xs tracking-widest mb-2">SEC.OPS // PHASE 03</div>
+<h2 class="font-headline-md text-headline-md text-white uppercase flex items-center gap-4 text-shadow-[0_0_10px_rgba(255,51,51,0.5)]">
+                        Safety Protocols <span class="material-symbols-outlined text-error text-4xl animate-pulse">warning</span>
+</h2>
+<p class="font-code-md text-on-surface-variant mt-2 max-w-2xl text-sm">Interim build validation and perimeter intrusion detection systems.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Image Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-card tech-border !border-primary/20 p-1 relative overflow-hidden group">
+<div class="absolute inset-0 border-2 border-transparent group-hover:border-primary/50 z-10 transition-colors pointer-events-none"></div>
+<img alt="Interim build of the holographic display showing exposed wires, LED strips, and raw 3D printed components undergoing testing on a workbench in a dimly lit engineering lab." class="w-full h-full object-cover filter grayscale contrast-150 group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNJxucJeOQNBCtNLqVYRM16cnsUh3akfwt6WGsdcf2SVQufY3y9vNXaySWkjksypSYHCIci_zzXrtAxIRUvpCgb1MlETTTJJkcbE_4phv10PA1Lj2xkdJ-nphvo5MaQ1MRut3CzfGj4ykDbs-3XGy5k5Q8dyfj31h8OGRfkSYP5ot1szygv1w2lsKeLK086a6pgpfl70ZJompqVL6XpunNPUanQIXyvObpEVvYY9X0kUBfK3201aqZIID6iUSWUXcmvgA"/>
+<div class="absolute bottom-2 left-2 bg-background/90 px-2 py-1 font-code-md text-[10px] text-primary border border-primary/30 z-20 backdrop-blur-sm">BUILD_STATE_01</div>
+</div>
+<div class="glass-card tech-border !border-primary/20 p-1 relative overflow-hidden group">
+<div class="absolute inset-0 border-2 border-transparent group-hover:border-primary/50 z-10 transition-colors pointer-events-none"></div>
+<img alt="Close up shot of the holographic display frame structure emphasizing the mechanical joints and unfinished prototyping phase with technical lighting." class="w-full h-full object-cover filter grayscale contrast-150 group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfgCmikeylINw1LkUiBEQQCSZonosY3uE54P5CXBs5czAQlzXkd5mbely6zMDo3Z4iIjCVA59tnZIZq8vVROGRgT5WRu6pja7EChPHQtBWyPXTrGSg9NYqHV5vabepALfuKr7swv5uCMInayz8zfgpmYYmexnrOI6bNLXR6W3y1m5O6dTuvIhR-N7w6eazbet_EydbC_s-Jzgn_MqNNenBNrGdftBOAvj-Qocd5Yyvgpxmbpu0Fc7oLYqAoVLzgIPFpnI"/>
+<div class="absolute bottom-2 left-2 bg-background/90 px-2 py-1 font-code-md text-[10px] text-primary border border-primary/30 z-20 backdrop-blur-sm">BUILD_STATE_02</div>
+</div>
+</div>
+<!-- Safety System Details -->
+<div class="flex flex-col justify-center gap-10 pl-0 md:pl-8">
+<div class="relative pl-8 border-l-2 border-primary/30 py-2">
+<div class="absolute -left-[7px] top-3 w-3 h-3 bg-background border-2 border-primary rounded-full shadow-[0_0_10px_#00e5ff]"></div>
+<h4 class="font-code-md text-primary mb-2 text-sm tracking-wider uppercase">Ultrasonic Proximity Array</h4>
+<p class="font-code-md text-on-surface-variant text-xs leading-relaxed">Monitors a 1.5m perimeter. Automatic emergency stop (E-STOP) engages upon intrusion detection to prevent physical contact with high-RPM blades.</p>
+</div>
+<div class="relative pl-8 border-l-2 border-primary/30 py-2">
+<div class="absolute -left-[7px] top-3 w-3 h-3 bg-background border-2 border-primary rounded-full shadow-[0_0_10px_#00e5ff]"></div>
+<h4 class="font-code-md text-primary mb-2 text-sm tracking-wider uppercase">WS2812 Visual Status Strip</h4>
+<p class="font-code-md text-on-surface-variant text-xs leading-relaxed">Base-mounted addressable LED strip provides immediate visual feedback of system states: Green (Safe), Yellow (Spinning Up), <span class="text-error">Red (Fault/E-STOP)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Team & Budget Section -->
+<section class="relative py-24 px-margin-desktop" id="team">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+<!-- Budget Table -->
+<div>
+<div class="font-code-md text-primary text-xs tracking-widest mb-2">FIN.OPS // ALLOC</div>
+<h2 class="font-headline-md text-headline-md text-white uppercase mb-8 glow-text">Financial Allocation</h2>
+<div class="glass-card tech-border overflow-hidden p-1">
+<table class="w-full text-left border-collapse bg-background/50">
+<thead>
+<tr class="bg-primary/10 border-b border-primary/30">
+<th class="p-4 font-code-md text-primary text-xs uppercase tracking-wider">Component Group</th>
+<th class="p-4 font-code-md text-primary text-xs uppercase tracking-wider text-right">Cost (LKR)</th>
+</tr>
+</thead>
+<tbody class="font-code-md text-sm text-white">
+<tr class="border-b border-primary/10 hover:bg-primary/5 transition-colors">
+<td class="p-4">Microcontrollers (ESP32)</td>
+<td class="p-4 text-right font-bold">15,000</td>
+</tr>
+<tr class="border-b border-primary/10 hover:bg-primary/5 transition-colors bg-surface-bright/20">
+<td class="p-4">Drive System (Motors &amp; ESCs)</td>
+<td class="p-4 text-right font-bold">45,500</td>
+</tr>
+<tr class="border-b border-primary/10 hover:bg-primary/5 transition-colors">
+<td class="p-4">Structural Framework &amp; 3D Prints</td>
+<td class="p-4 text-right font-bold">62,000</td>
+</tr>
+<tr class="border-b border-primary/10 hover:bg-primary/5 transition-colors bg-surface-bright/20">
+<td class="p-4">Sensors &amp; Safety Systems</td>
+<td class="p-4 text-right font-bold">12,500</td>
+</tr>
+<tr class="border-b border-primary/10 hover:bg-primary/5 transition-colors">
+<td class="p-4">Misc. Electronics &amp; Cabling</td>
+<td class="p-4 text-right font-bold">15,077</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="border-t-2 border-primary text-primary bg-primary/10">
+<td class="p-4 uppercase font-bold text-sm tracking-wider">Total System Cost</td>
+<td class="p-4 text-right font-bold text-lg">150,077</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<!-- Team Grid -->
+<div>
+<div class="text-right">
+<div class="font-code-md text-primary text-xs tracking-widest mb-2">ORG.STRUCT // TEAM</div>
+<h2 class="font-headline-md text-headline-md text-white uppercase mb-8 glow-text">Project Vanguard</h2>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-card tech-border p-6 text-center group hover:bg-primary/10 transition-all cursor-pointer">
+<div class="w-16 h-16 bg-background rounded-full mx-auto mb-4 border border-primary/40 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-primary text-2xl">engineering</span>
+</div>
+<h4 class="font-code-md text-white text-sm font-bold uppercase tracking-wide">Lead Engineer</h4>
+<p class="font-code-md text-primary/70 text-[10px] mt-2 uppercase tracking-widest">Hardware Dev</p>
+</div>
+<div class="glass-card tech-border p-6 text-center group hover:bg-primary/10 transition-all cursor-pointer">
+<div class="w-16 h-16 bg-background rounded-full mx-auto mb-4 border border-primary/40 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-primary text-2xl">terminal</span>
+</div>
+<h4 class="font-code-md text-white text-sm font-bold uppercase tracking-wide">Systems Architect</h4>
+<p class="font-code-md text-primary/70 text-[10px] mt-2 uppercase tracking-widest">Firmware Dev</p>
+</div>
+<div class="glass-card tech-border p-6 text-center group hover:bg-primary/10 transition-all cursor-pointer">
+<div class="w-16 h-16 bg-background rounded-full mx-auto mb-4 border border-primary/40 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-primary text-2xl">architecture</span>
+</div>
+<h4 class="font-code-md text-white text-sm font-bold uppercase tracking-wide">CAD Designer</h4>
+<p class="font-code-md text-primary/70 text-[10px] mt-2 uppercase tracking-widest">Mechanical</p>
+</div>
+<div class="glass-card tech-border p-6 text-center group hover:bg-primary/10 transition-all cursor-pointer">
+<div class="w-16 h-16 bg-background rounded-full mx-auto mb-4 border border-primary/40 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-primary text-2xl">memory</span>
+</div>
+<h4 class="font-code-md text-white text-sm font-bold uppercase tracking-wide">Electronics Lead</h4>
+<p class="font-code-md text-primary/70 text-[10px] mt-2 uppercase tracking-widest">PCB Design</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="glass-card w-full mt-auto border-t border-primary/30 flex flex-col md:flex-row justify-between items-center px-margin-desktop py-6 gap-4 z-50 relative rounded-none">
+<div class="flex items-center gap-4">
+<span class="font-code-md text-[10px] text-primary/70 uppercase tracking-widest">© 2024 Fusion 5 Project Group.</span>
+<span class="hidden md:inline-block w-px h-4 bg-primary/30"></span>
+<span class="font-code-md text-[10px] text-primary/70 uppercase tracking-widest">University of Moratuwa.</span>
+</div>
+<div class="flex gap-6">
+<a class="font-code-md text-[11px] uppercase tracking-wider text-white hover:text-primary transition-colors" href="#">Supervisor Info</a>
+<a class="font-code-md text-[11px] uppercase tracking-wider text-white hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="font-code-md text-[11px] uppercase tracking-wider text-white hover:text-primary transition-colors" href="#">Institutional Branding</a>
+</div>
+</footer>
+</body></html>

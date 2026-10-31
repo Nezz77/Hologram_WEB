@@ -1,0 +1,85 @@
+[
+  {
+    "id": "esp32s3",
+    "name": "ESP32-S3 DevKitC-1 N16R8",
+    "category": "Microcontroller",
+    "specs": "16MB Flash, 8MB PSRAM, Dual-Core 240MHz, Wi-Fi & BLE 5.0",
+    "link": "https://tronic.lk/product/esp32-s3-devkitc-1-dev-board-n16r8-wifi-bluetooth-iot?srsltid=AfmBOoprI_voRW0UsEsJZFombh82T6EcBMxWo65qdclMeQNFF3nSBY-l",
+    "role": "Primary real-time controller for POV timing, rotation synchronization, and LED pixel streaming.",
+    "image": "assets/images/electronics/esp32s3.jpg"
+  },
+  {
+    "id": "hall_sensor",
+    "name": "3144E Hall Effect Sensor Module",
+    "category": "Position Sensor",
+    "specs": "Digital Switch Output, 4.5V\u201324V Operating Range, High Sensitivity",
+    "link": "https://tronic.lk/product/3144e-hall-effect-switch-speed-counting-position-sensin",
+    "role": "Detects rotor magnetic trigger point for precise 0\u00b0 index synchronization on each revolution.",
+    "image": "assets/images/electronics/hall_sensor.jpg"
+  },
+  {
+    "id": "motor_a2212",
+    "name": "A2212 1000KV Brushless Outrunner Motor",
+    "category": "Actuator / Motor",
+    "specs": "1000KV, Max Current: 12A/60s, 2\u20133S LiPo Compatible, High Torque",
+    "link": "https://tronic.lk/product/a221213t-1000kv-brushless-outrunner-motor-for-rc-airpla?srsltid=AfmBOopljQZNkfh9ABwVQy3XNlt2YrDZ-G0cIQh0TWCfDDXYX-MPcVKn",
+    "role": "Drives the rotating display assembly at constant, stabilized target RPM.",
+    "image": "assets/images/electronics/motor_a2212.jpg"
+  },
+  {
+    "id": "esc_30a",
+    "name": "30A Electronic Speed Controller (ESC)",
+    "category": "Motor Driver",
+    "specs": "30A Continuous, BEC Output: 5V/2A, 2\u20134S LiPo Input, PWM Throttle",
+    "link": "https://tronic.lk/product/esc-30a-electronic-speed-controller-bec-5v-2a-for-2-4s-",
+    "role": "Provides brushless motor speed modulation and closed-loop speed regulation.",
+    "image": "assets/images/electronics/esc_30a.jpg"
+  },
+  {
+    "id": "magnet_n35",
+    "name": "Neodymium Magnet N35 (20x3mm)",
+    "category": "Magnetic Reference",
+    "specs": "Rare-Earth NdFeB, Grade N35, 20mm Diameter \u00d7 3mm Thickness",
+    "link": "https://tronic.lk/product/neodymium-magnet-rare-earth-n35-20x3mm-cylinder",
+    "role": "Mounted on stationary base to trigger the rotating Hall effect sensor each rotation.",
+    "image": "assets/images/electronics/magnet_n35.jpg"
+  },
+  {
+    "id": "ultrasonic",
+    "name": "HC-SR04 Ultrasonic Distance Sensor",
+    "category": "Proximity Sensor",
+    "specs": "2cm\u2013400cm Range, 3mm Accuracy, 5V DC, 15\u00b0 Measuring Angle",
+    "link": "https://tronic.lk/product/hc-sr04-4pin-ultrasonic-sensor-module?srsltid=AfmBOorkfIW2q2r-4MHeAb-pb5eon3zVrsxWctQ2JpH5Kf6qitG5Y663",
+    "role": "Enables gesture-based interactive holographic menu selection and proximity detection.",
+    "image": "assets/images/electronics/ultrasonic.jpg"
+  },
+  {
+    "id": "nodemcu_esp32",
+    "name": "NodeMCU ESP32 Dev Board (30-Pin)",
+    "category": "Base Controller",
+    "specs": "Xtensa Dual-Core 32-bit, 2.4 GHz Wi-Fi + Bluetooth, Micro-USB",
+    "link": "https://tronic.lk/product/nodemcu-esp32-dev-board-microusb-30-pin-wifi-bluetooth-",
+    "role": "Base station master controller managing wireless telemetry, UI controls, and power management.",
+    "image": "assets/images/electronics/nodemcu_esp32.jpg"
+  },
+  {
+    "id": "ws2812",
+    "name": "WS2812B Addressable RGB LED Strip",
+    "category": "Display Array",
+    "specs": "5V DC, Individually Addressable, Integrated WS2811 IC, 5050 SMD",
+    "link": "https://www.daraz.lk/products/ws2812b-pixel-led-5m-strip-300-led-5v-ip20-addressable-led-strip-5-meter-pack-i198422618.html",
+    "img_url": "https://lk-live-21.slatic.net/kf/S7f07fe97694c4d8a9ac324362d458bf2O.jpg",
+    "role": "Rotating LED arm display array generating 3D holographic volumetric patterns.",
+    "image": "assets/images/electronics/ws2812.jpg"
+  },
+  {
+    "id": "apa102",
+    "name": "APA102 High-Speed DotStar LED Strip",
+    "category": "Display Array (High Refresh)",
+    "specs": "Separate Clock & Data (SPI), Up to 24MHz Clock, Ultra-Fast Refresh",
+    "link": "https://elmwoodelectronics.ca/products/14015",
+    "img_url": "http://elmwoodelectronics.ca/cdn/shop/products/14015-03_600x.jpg?v=1485787618",
+    "role": "High-frequency SPI-based LED strip option for ultra-low latency POV rendering.",
+    "image": "assets/images/electronics/apa102.jpg"
+  }
+]

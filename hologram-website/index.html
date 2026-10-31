@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hologram Array — Fusion 5 | Engineering Project</title>
+  <meta name="description"
+    content="Fusion 5's Hologram Array project — a 3D persistence-of-vision holographic display engineered for real-world interaction." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <nav id="nav" class="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo" id="nav-logo">
+        <span class="nav__logo-mark">◈</span>
+        <span>FUSION<span class="nav__logo-accent">5</span></span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#about" class="nav__link" id="nav-about">About</a></li>
+        <li><a href="#specs" class="nav__link" id="nav-specs">Specs</a></li>
+        <li><a href="#process" class="nav__link" id="nav-process">Process</a></li>
+        <li><a href="#interim" class="nav__link" id="nav-interim">Interim</a></li>
+        <li><a href="#showcase" class="nav__link" id="nav-showcase">Showcase</a></li>
+        <li><a href="#team" class="nav__link" id="nav-team">Team</a></li>
+      </ul>
+      <button class="btn btn--primary nav__cta" id="nav-cta"
+        onclick="document.getElementById('showcase').scrollIntoView({behavior:'smooth'})">View Demo</button>
+      <button class="nav__hamburger" id="hamburger"
+        aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <section id="hero" class="hero">
+    <div class="hero__grid-bg"></div>
+    <div class="hero__particles" id="particles"></div>
+    <div class="hero__content">
+      <div class="hero__eyebrow">
+        <span class="badge" id="badge-project">PROJECT</span>
+        <span class="badge badge--cyan" id="badge-status">● OPERATIONAL</span>
+      </div>
+      <h1 class="hero__title" id="hero-title">
+        <span class="hero__title-line">HOLOGRAM</span>
+        <span class="hero__title-line hero__title-line--accent">ARRAY</span>
+      </h1>
+      <p class="hero__subtitle" id="hero-subtitle">
+        A persistence-of-vision 3D holographic display engineered from first principles —
+        spinning LED arrays, wireless power transfer, and real-time rendering.
+      </p>
+      <div class="hero__stats" id="hero-stats">
+        <div class="hero__stat">
+          <span class="hero__stat-value mono" data-count="700">0</span>
+          <span class="hero__stat-unit">RPM</span>
+          <span class="hero__stat-label">Motor Speed</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-value mono" data-count="200">0</span>
+          <span class="hero__stat-unit">LEDs</span>
+          <span class="hero__stat-label">WS2812B Strip</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-value mono" data-count="360">0</span>
+          <span class="hero__stat-unit">°</span>
+          <span class="hero__stat-label">Field of View</span>
+        </div>
+      </div>
+      <div class="hero__actions">
+        <button class="btn btn--primary" id="hero-cta-watch"
+          onclick="document.getElementById('showcase').scrollIntoView({behavior:'smooth'})">Watch Demo ▶</button>
+        <button class="btn btn--ghost" id="hero-cta-explore"
+          onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Explore Project</button>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__orb">
+        <div class="hero__orb-ring hero__orb-ring--1"></div>
+        <div class="hero__orb-ring hero__orb-ring--2"></div>
+        <div class="hero__orb-ring hero__orb-ring--3"></div>
+        <div class="hero__orb-core">
+          <img src="assets/images/hologram1.jpg" alt="Hologram display active" class="hero__orb-img"
+            id="hero-orb-img" />
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="hero__scroll-cue" id="scroll-cue">
+      <span class="hero__scroll-label">SCROLL</span>
+      <span class="hero__scroll-arrow">↓</span>
+    </a>
+  </section>
+
+  <section id="about" class="section about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label" id="about-label">// 01 — ABOUT</span>
+        <h2 class="section-title" id="about-title">What We Built</h2>
+      </div>
+      <div class="about__grid">
+        <div class="about__text">
+          <p class="about__lead" id="about-lead">
+            Fusion 5 engineered a full-stack holographic display system — spanning mechanical design,
+            custom PCB fabrication, firmware, wireless power, and real-time image rendering.
+          </p>
+          <p class="about__body" id="about-body">
+            The Hologram Array uses the persistence-of-vision (POV) principle: a 200-LED strip mounted
+            on a rotating arm spins at 700 RPM. By precisely timing individual LED illumination to
+            angular position, the system paints a full 3D image suspended in mid-air with no screen.
+          </p>
+          <p class="about__body">
+            Power is transferred wirelessly to the rotating assembly via resonant inductive coupling.
+            The entire control stack runs on an ESP32 communicating with a host PC over Wi-Fi.
+          </p>
+          <div class="about__tags">
+            <span class="tag">ESP32</span>
+            <span class="tag">WS2812B LEDs</span>
+            <span class="tag">Custom PCB</span>
+            <span class="tag">Wireless Power</span>
+            <span class="tag">3D Printed CAD</span>
+            <span class="tag">POV Rendering</span>
+          </div>
+        </div>
+        <div class="about__image-panel">
+          <div class="about__img-card glass-card">
+            <img src="assets/images/hologram2.jpg" alt="Hologram display unit" />
+            <div class="about__img-caption">
+              <span class="mono">IMG_001</span>
+              <span>Active display unit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="specs" class="section specs">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">// 02 — SPECIFICATIONS</span>
+        <h2 class="section-title" id="specs-title">Technical Breakdown</h2>
+      </div>
+      <div class="specs__grid">
+        <div class="spec-card glass-card spec-card--clickable" id="spec-mechanical" onclick="openStlModal()"
+          role="button" tabindex="0" aria-label="View 3D files">
+          <div class="spec-card__id mono">SYS-01</div>
+          <div class="spec-card__icon">⚙</div>
+          <h3 class="spec-card__title">Mechanical</h3>
+          <ul class="spec-card__list">
+            <li><span class="spec-key mono">Motor</span><span class="spec-val">BLDC 700 RPM</span></li>
+            <li><span class="spec-key mono">Frame</span><span class="spec-val">PLA 3D Printed</span></li>
+            <li><span class="spec-key mono">Arm Length</span><span class="spec-val">150 mm</span></li>
+            <li><span class="spec-key mono">Coil Holder</span><span class="spec-val">Custom wound</span></li>
+            <li><span class="spec-key mono">Balance</span><span class="spec-val">Counter-weighted</span></li>
+          </ul>
+          <div class="spec-card__cta">
+            <span class="mono">Explore 3D Assembly</span>
+            <span class="spec-card__cta-icon">⬡</span>
+          </div>
+        </div>
+        <div class="spec-card glass-card spec-card--clickable" id="spec-electronics" onclick="openElectronicsModal()"
+          role="button" tabindex="0" aria-label="View electronic components">
+          <div class="spec-card__id mono">SYS-02</div>
+          <div class="spec-card__icon">⚡</div>
+          <h3 class="spec-card__title">Electronics</h3>
+          <ul class="spec-card__list">
+            <li><span class="spec-key mono">MCU</span><span class="spec-val">ESP32-S3 / NodeMCU</span></li>
+            <li><span class="spec-key mono">Display</span><span class="spec-val">200× WS2812B / APA102</span></li>
+            <li><span class="spec-key mono">Position</span><span class="spec-val">3144E Hall Sensor</span></li>
+            <li><span class="spec-key mono">Motor Drive</span><span class="spec-val">A2212 + 30A ESC</span></li>
+            <li><span class="spec-key mono">Interaction</span><span class="spec-val">HC-SR04 Ultrasonic</span></li>
+          </ul>
+          <div class="spec-card__cta">
+            <span class="mono">Explore Hardware</span>
+            <span class="spec-card__cta-icon">⚡</span>
+          </div>
+        </div>
+        <div class="spec-card glass-card spec-card--clickable" id="spec-software" onclick="openSoftwareModal()"
+          role="button" tabindex="0" aria-label="View software architecture and source code">
+          <div class="spec-card__id mono">SYS-04</div>
+          <div class="spec-card__icon">◈</div>
+          <h3 class="spec-card__title">Software</h3>
+          <ul class="spec-card__list">
+            <li><span class="spec-key mono">Firmware</span><span class="spec-val">Arduino / ESP-IDF</span></li>
+            <li><span class="spec-key mono">Comms</span><span class="spec-val">Wi-Fi UDP Stream</span></li>
+            <li><span class="spec-key mono">Rendering</span><span class="spec-val">Python Overlap Engine</span></li>
+            <li><span class="spec-key mono">Image Map</span><span class="spec-val">Polar coordinate</span></li>
+            <li><span class="spec-key mono">FPS</span><span class="spec-val">30 fps @ 700 RPM</span></li>
+          </ul>
+          <div class="spec-card__cta">
+            <span class="mono">View Source Code</span>
+            <span class="spec-card__cta-icon">◈</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="section process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">// 03 — PROCESS</span>
+        <h2 class="section-title" id="process-title">Build Timeline</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline__item timeline__item--done" id="tl-concept">
+          <div class="timeline__node"><span>✓</span></div>
+          <div class="timeline__content glass-card">
+            <span class="timeline__date mono">PHASE 01 · JAN</span>
+            <h3 class="timeline__heading">Concept & Research</h3>
+            <p>POV holography research, feasibility study, and component shortlisting. Defined RPM targets, LED density,
+              and power budget.</p>
+          </div>
+        </div>
+        <div class="timeline__item timeline__item--done" id="tl-design">
+          <div class="timeline__node"><span>✓</span></div>
+          <div class="timeline__content glass-card">
+            <span class="timeline__date mono">PHASE 02 · FEB–MAR</span>
+            <h3 class="timeline__heading">CAD & PCB Design</h3>
+            <p>SolidWorks 3D models for all mechanical parts. KiCad PCB layout for the rotating LED board and the
+              stationary base. Coil geometry optimized for WPT.</p>
+          </div>
+        </div>
+        <div class="timeline__item timeline__item--done" id="tl-fabrication">
+          <div class="timeline__node"><span>✓</span></div>
+          <div class="timeline__content glass-card">
+            <span class="timeline__date mono">PHASE 03 · APR</span>
+            <h3 class="timeline__heading">Fabrication & Assembly</h3>
+            <p>3D printing of motor mount, coil holders, frame, and spacers. PCBs fabricated and assembled. Motor and
+              LED strip mounted and balanced.</p>
+          </div>
+        </div>
+        <div class="timeline__item timeline__item--done" id="tl-firmware">
+          <div class="timeline__node"><span>✓</span></div>
+          <div class="timeline__content glass-card">
+            <span class="timeline__date mono">PHASE 04 · MAY</span>
+            <h3 class="timeline__heading">Firmware & Software</h3>
+            <p>ESP32 firmware for hall-effect triggered POV rendering. Python host for polar-to-Cartesian image mapping
+              and Wi-Fi streaming.</p>
+          </div>
+        </div>
+        <div class="timeline__item timeline__item--done" id="tl-interim">
+          <div class="timeline__node"><span>✓</span></div>
+          <div class="timeline__content glass-card">
+            <span class="timeline__date mono">PHASE 05 · JUN</span>
+            <h3 class="timeline__heading">Interim Showcase</h3>
+            <p>First public demonstration with partial image rendering. Demonstrated wireless power and basic POV
+              patterns to faculty reviewers.</p>
+          </div>
+        </div>
+        <div class="timeline__item timeline__item--final" id="tl-final">
+          <div class="timeline__node timeline__node--star"><span>★</span></div>
+          <div class="timeline__content glass-card timeline__content--highlight">
+            <span class="timeline__date mono">PHASE 06 · AUG</span>
+            <h3 class="timeline__heading">Final Evaluation</h3>
+            <p>Full-color 3D image display operational. Live demo to evaluators with real-time image switching via host
+              PC. Project successfully completed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="interim" class="section interim">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">// 04 — INTERIM SHOWCASE</span>
+        <h2 class="section-title" id="interim-title">Mid-Project Demo</h2>
+        <p class="section-subtitle">Early demonstration of core subsystems — spinning assembly, wireless power, and
+          initial POV patterns.</p>
+      </div>
+      <div class="interim__grid">
+        <div class="interim__card glass-card" id="interim-card-1">
+          <div class="interim__img-wrap">
+            <img src="assets/images/interim/hologram_interim1.jpg" alt="Interim hologram showcase 1" loading="lazy" />
+            <div class="interim__overlay">
+              <span class="mono">INTERIM · 01</span>
+              <p>First POV pattern successfully rendered</p>
+            </div>
+          </div>
+        </div>
+        <div class="interim__card glass-card" id="interim-card-2">
+          <div class="interim__img-wrap">
+            <img src="assets/images/interim/hologram_interim2.jpg" alt="Interim hologram showcase 2" loading="lazy" />
+            <div class="interim__overlay">
+              <span class="mono">INTERIM · 02</span>
+              <p>Wireless power transfer validated at 700 RPM</p>
+            </div>
+          </div>
+        </div>
+        <div class="interim__text-card glass-card" id="interim-text-card">
+          <span class="mono interim__milestone-id">MILESTONE TRACKER</span>
+          <h3>Interim Goals</h3>
+          <ul class="milestone-list">
+            <li><span class="check">✓</span> Motor spinning at target RPM</li>
+            <li><span class="check">✓</span> Hall-effect sync working</li>
+            <li><span class="check">✓</span> WPT coil transferring power</li>
+            <li><span class="check">✓</span> Basic POV pattern visible</li>
+            <li><span class="check pending">◎</span> Full image rendering (Final)</li>
+            <li><span class="check pending">◎</span> Wi-Fi live update (Final)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="showcase" class="section showcase">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">// 05 — VIDEO SHOWCASE</span>
+        <h2 class="section-title" id="showcase-title">See It In Action</h2>
+        <p class="section-subtitle">Live holographic display demonstrations from the final evaluation day.</p>
+      </div>
+      <div class="showcase__hero-video glass-card" id="showcase-main-video">
+        <video id="main-video" src="assets/videos/demo1.mp4" controls preload="metadata"
+          poster="assets/images/evaluation/1.jpeg"></video>
+        <div class="showcase__video-label">
+          <span class="mono">VID_001</span>
+          <span>Final demo — full holographic display active</span>
+        </div>
+      </div>
+      <div class="showcase__secondary-videos" id="showcase-secondary">
+        <div class="showcase__vid-card glass-card" id="showcase-vid-2">
+          <video src="assets/videos/build1.mov" controls preload="metadata"
+            poster="assets/images/evaluation/3.jpeg"></video>
+          <div class="showcase__vid-label mono">VID_002 · Build process</div>
+        </div>
+        <div class="showcase__vid-card glass-card" id="showcase-vid-3">
+          <video src="assets/videos/build2.mov" controls preload="metadata"
+            poster="assets/images/evaluation/5.jpeg"></video>
+          <div class="showcase__vid-label mono">VID_003 · Assembly test run</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="section team">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">// 06 — TEAM</span>
+        <h2 class="section-title" id="team-title">The Fusion 5 Team</h2>
+        <p class="section-subtitle">Engineering students who designed, fabricated, and delivered the Hologram Array —
+          Evaluation Day photos.</p>
+      </div>
+      <div class="gallery" id="gallery">
+        <div class="gallery__item gallery__item--wide" id="gallery-1">
+          <img src="assets/images/evaluation/1.jpeg" alt="Fusion 5 team evaluation day" loading="lazy" />
+          <div class="gallery__caption"><span class="mono">GROUP · 01</span></div>
+        </div>
+        <div class="gallery__item" id="gallery-2">
+          <img src="assets/images/evaluation/2.jpeg" alt="Fusion 5 team evaluation day" loading="lazy" />
+          <div class="gallery__caption"><span class="mono">TEAM · 02</span></div>
+        </div>
+        <div class="gallery__item" id="gallery-3">
+          <img src="assets/images/evaluation/3.jpeg" alt="Evaluation day" loading="lazy" />
+          <div class="gallery__caption"><span class="mono">EVAL · 03</span></div>
+        </div>
+        <div class="gallery__item gallery__item--tall" id="gallery-4">
+          <img src="assets/images/evaluation/4.jpeg" alt="Hologram demo evaluation" loading="lazy" />
+          <div class="gallery__caption"><span class="mono">DEMO · 04</span></div>
+        </div>
+        <div class="gallery__item" id="gallery-5">
+          <img src="assets/images/evaluation/5.jpeg" alt="Team evaluation" loading="lazy" />
+          <div class="gallery__caption"><span class="mono">EVAL · 05</span></div>
+        </div>
+        <div class="gallery__item" id="gallery-6">
+          <img src="assets/images/evaluation/6.jpeg" alt="Fusion 5 team" loading="lazy" />
+          <div class="gallery__caption"><span class="mono">GROUP · 06</span></div>
+        </div>
+        <div class="gallery__item gallery__item--wide" id="gallery-7">
+          <img src="assets/images/evaluation/7.jpeg" alt="Fusion 5 full team" loading="lazy" />
+          <div class="gallery__caption"><span class="mono">FULL TEAM · 07</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="footer">
+    <div class="footer__glow"></div>
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__brand">
+          <span class="nav__logo-mark">◈</span>
+          <span class="footer__brand-name">FUSION<span class="nav__logo-accent">5</span></span>
+          <p class="footer__tagline mono">HOLOGRAM ARRAY · ENGINEERING PROJECT · 2024</p>
+        </div>
+        <div class="footer__links">
+          <a href="#about" class="footer__link">About</a>
+          <a href="#specs" class="footer__link">Specs</a>
+          <a href="#process" class="footer__link">Process</a>
+          <a href="#showcase" class="footer__link">Showcase</a>
+          <a href="#team" class="footer__link">Team</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="mono footer__copy">© 2024 FUSION 5 · ALL RIGHTS RESERVED</span>
+        <span class="mono footer__build">BUILD v1.0.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox__close" id="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox__prev" id="lightbox-prev" aria-label="Previous image">&#8249;</button>
+    <button class="lightbox__next" id="lightbox-next" aria-label="Next image">&#8250;</button>
+    <div class="lightbox__img-wrap">
+      <img src="" alt="" id="lightbox-img" />
+      <span class="lightbox__caption mono" id="lightbox-caption"></span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ STL VIEWER MODAL ═══════════════════ -->
+  <div class="stl-modal" id="stl-modal" role="dialog" aria-modal="true" aria-label="3D Model Viewer">
+    <div class="stl-modal__panel">
+      <!-- Header -->
+      <div class="stl-modal__header">
+        <div class="stl-modal__title-group">
+          <span class="section-label" style="margin-bottom:4px">// SYS-01 · MECHANICAL</span>
+          <h2 class="stl-modal__title">3D Component Files</h2>
+        </div>
+        <button class="stl-modal__close" id="stl-modal-close" aria-label="Close viewer">&times;</button>
+      </div>
+
+      <!-- Body -->
+      <div class="stl-modal__body">
+        <!-- Part list sidebar -->
+        <div class="stl-modal__sidebar">
+          <span class="mono stl-modal__sidebar-label">SELECT PART</span>
+          <ul class="stl-part-list" id="stl-part-list"></ul>
+        </div>
+
+        <!-- 3D Canvas -->
+        <div class="stl-modal__viewer">
+          <div class="stl-modal__canvas-wrap">
+            <canvas id="stl-canvas"></canvas>
+            <div class="stl-modal__loading" id="stl-loading">
+              <div class="stl-spinner"></div>
+              <span class="mono">Loading model…</span>
+            </div>
+            <div class="stl-modal__controls-hint mono">Drag to rotate · Scroll to zoom · Right-drag to pan</div>
+          </div>
+          <div class="stl-modal__part-info" id="stl-part-info">
+            <span class="mono stl-part-name" id="stl-part-name">—</span>
+            <span class="mono stl-part-ext">.STL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ ELECTRONICS VIEWER MODAL ═══════════════════ -->
+  <div class="stl-modal elec-modal" id="elec-modal" role="dialog" aria-modal="true" aria-label="Electronics Component Viewer">
+    <div class="stl-modal__panel elec-modal__panel">
+      <!-- Header -->
+      <div class="stl-modal__header">
+        <div class="stl-modal__title-group">
+          <span class="section-label" style="margin-bottom:4px">// SYS-02 · ELECTRONICS</span>
+          <h2 class="stl-modal__title">Hardware & Electronic Components</h2>
+        </div>
+        <button class="stl-modal__close" id="elec-modal-close" aria-label="Close viewer">&times;</button>
+      </div>
+
+      <!-- Body -->
+      <div class="stl-modal__body elec-modal__body">
+        <!-- Component list sidebar -->
+        <div class="stl-modal__sidebar">
+          <span class="mono stl-modal__sidebar-label">SELECT COMPONENT</span>
+          <ul class="stl-part-list elec-part-list" id="elec-part-list"></ul>
+        </div>
+
+        <!-- Component Detail & Image Viewer -->
+        <div class="elec-modal__viewer">
+          <div class="elec-modal__display">
+            <div class="elec-modal__img-card">
+              <img id="elec-img" src="" alt="Electronic Component" class="elec-modal__img" />
+              <div class="elec-modal__img-badge mono" id="elec-category">—</div>
+            </div>
+            <div class="elec-modal__details">
+              <div class="elec-modal__meta">
+                <span class="mono elec-modal__id" id="elec-id">SYS-02-01</span>
+                <h3 class="elec-modal__name" id="elec-name">—</h3>
+                <p class="elec-modal__role" id="elec-role">—</p>
+              </div>
+
+              <div class="elec-modal__specs-box">
+                <span class="mono elec-modal__specs-title">TECHNICAL SPECIFICATIONS</span>
+                <p class="elec-modal__specs-val mono" id="elec-specs">—</p>
+              </div>
+
+              <div class="elec-modal__actions">
+                <a class="btn btn--primary elec-modal__link" id="elec-link" href="#" target="_blank" rel="noopener noreferrer">
+                  View Component Source <span class="btn__icon">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SOFTWARE VIEWER MODAL ═══════════════════ -->
+  <div class="stl-modal soft-modal" id="soft-modal" role="dialog" aria-modal="true" aria-label="Software Architecture & Source Code">
+    <div class="stl-modal__panel soft-modal__panel">
+      <!-- Header -->
+      <div class="stl-modal__header">
+        <div class="stl-modal__title-group">
+          <span class="section-label" style="margin-bottom:4px">// SYS-04 · SOFTWARE & FIRMWARE</span>
+          <h2 class="stl-modal__title">Software Stack & Algorithms</h2>
+        </div>
+        <button class="stl-modal__close" id="soft-modal-close" aria-label="Close viewer">&times;</button>
+      </div>
+
+      <!-- Body -->
+      <div class="stl-modal__body soft-modal__body">
+        <!-- Module list sidebar -->
+        <div class="stl-modal__sidebar">
+          <span class="mono stl-modal__sidebar-label">SELECT MODULE</span>
+          <ul class="stl-part-list soft-part-list" id="soft-part-list"></ul>
+        </div>
+
+        <!-- Module Detail & Code Architecture -->
+        <div class="elec-modal__viewer soft-modal__viewer">
+          <div class="soft-modal__display">
+            <div class="soft-modal__hero-box">
+              <div class="soft-modal__repo-header">
+                <span class="mono soft-modal__badge" id="soft-badge">GITHUB REPOSITORY</span>
+                <span class="mono soft-modal__sys-id" id="soft-id">SYS-04-01</span>
+              </div>
+              <h3 class="soft-modal__title-main" id="soft-name">hologram_fan_software_Overlap</h3>
+              <p class="soft-modal__desc" id="soft-desc">—</p>
+
+              <!-- Tags -->
+              <div class="soft-modal__tags" id="soft-tags"></div>
+            </div>
+
+            <div class="elec-modal__details">
+              <div class="elec-modal__specs-box">
+                <span class="mono elec-modal__specs-title">TECHNICAL HIGHLIGHTS & ARCHITECTURE</span>
+                <p class="elec-modal__specs-val mono" id="soft-specs">—</p>
+              </div>
+
+              <!-- Code Preview / Architecture Box -->
+              <div class="soft-modal__code-box">
+                <div class="soft-modal__code-header">
+                  <span class="mono soft-modal__code-file" id="soft-code-file">algorithm.py</span>
+                  <span class="mono soft-modal__code-lang" id="soft-code-lang">PYTHON / C++</span>
+                </div>
+                <pre class="soft-modal__code-pre"><code class="mono" id="soft-code-snippet"></code></pre>
+              </div>
+
+              <div class="elec-modal__actions">
+                <a class="btn btn--primary soft-modal__link" id="soft-link" href="https://github.com/Nezz77/hologram_fan_software_Overlap" target="_blank" rel="noopener noreferrer">
+                  View on GitHub <span class="btn__icon">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js r128 + STL Loader (local) -->
+  <script src="assets/js/three.min.js"></script>
+  <script src="assets/js/STLLoader.js"></script>
+  <script src="assets/js/OrbitControls.js"></script>
+  <script src="script.js"></script>
+  <script src="stl-viewer.js"></script>
+  <script src="electronics-viewer.js"></script>
+  <script src="software-viewer.js"></script>
+</body>
+
+</html>

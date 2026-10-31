@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Engineering Vanguard - Fusion 5</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#93000a",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "surface-container-highest": "#353535",
+                      "on-primary": "#00363d",
+                      "surface-container-high": "#2a2a2a",
+                      "on-tertiary-fixed-variant": "#474646",
+                      "on-tertiary-container": "#5a5959",
+                      "on-primary-fixed": "#001f24",
+                      "secondary-container": "#ff562c",
+                      "inverse-surface": "#e5e2e1",
+                      "on-background": "#e5e2e1",
+                      "tertiary-container": "#d3d0cf",
+                      "on-secondary-container": "#560e00",
+                      "surface-tint": "#00daf3",
+                      "secondary-fixed": "#ffdad2",
+                      "surface-container-low": "#1c1b1b",
+                      "secondary": "#ffb4a2",
+                      "surface-bright": "#393939",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#0e0e0e",
+                      "tertiary-fixed": "#e5e2e1",
+                      "secondary-fixed-dim": "#ffb4a2",
+                      "on-secondary": "#621100",
+                      "primary-fixed-dim": "#00daf3",
+                      "outline": "#849396",
+                      "primary": "#c3f5ff",
+                      "on-surface-variant": "#bac9cc",
+                      "background": "#131313",
+                      "inverse-on-surface": "#313030",
+                      "on-tertiary": "#313030",
+                      "inverse-primary": "#006875",
+                      "primary-container": "#00e5ff",
+                      "on-secondary-fixed-variant": "#8a1d00",
+                      "on-secondary-fixed": "#3c0700",
+                      "error": "#ffb4ab",
+                      "on-error-container": "#ffdad6",
+                      "outline-variant": "#3b494c",
+                      "on-surface": "#e5e2e1",
+                      "tertiary": "#f0ecec",
+                      "surface-dim": "#131313",
+                      "on-primary-container": "#00626e",
+                      "tertiary-fixed-dim": "#c9c6c5",
+                      "surface-variant": "#353535",
+                      "on-primary-fixed-variant": "#004f58",
+                      "surface-container": "#20201f",
+                      "primary-fixed": "#9cf0ff",
+                      "surface": "#131313"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "grid-subtle": "1px solid rgba(0, 229, 255, 0.05)",
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter", "sans-serif"],
+                      "body-md": ["Inter", "sans-serif"],
+                      "label-caps": ["JetBrains Mono", "monospace"],
+                      "headline-md": ["Inter", "sans-serif"],
+                      "code-md": ["JetBrains Mono", "monospace"],
+                      "headline-sm": ["Inter", "sans-serif"],
+                      "display-lg": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "code-md": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "headline-sm": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0A0A0A;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+            color: #e5e2e1;
+        }
+        .tech-border {
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            position: relative;
+        }
+        .tech-border::before, .tech-border::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border: 1px solid rgba(0, 229, 255, 0.5);
+        }
+        .tech-border::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .tech-border::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+        
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 229, 255, 0.1) 50%,
+                rgba(0, 229, 255, 0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .hud-tag {
+            position: relative;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            color: #00daf3;
+            padding: 4px 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .hud-tag::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 4px;
+            background: #00daf3;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl border-b border-primary/15 transition-all duration-300 ease-out">
+<div class="flex justify-between items-center px-margin-desktop h-16 w-full max-w-[1920px] mx-auto">
+<div class="font-headline-sm text-headline-sm font-bold text-primary tracking-tighter">
+                Fusion 5
+            </div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Overview</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Assembly</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Electronics</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Safety</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-primary border-b-2 border-primary pb-1 px-3 py-1 rounded bg-primary/5" href="#">Team</a>
+<a class="font-body-md text-body-md uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors hover:bg-primary/10 px-3 py-1 rounded" href="#">Supervisor</a>
+</div>
+<button class="bg-primary/10 border border-primary text-primary px-6 py-2 rounded-none font-label-caps text-label-caps hover:bg-primary hover:text-background transition-colors tech-border">
+                Documentation
+            </button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-[1920px] mx-auto w-full">
+<!-- Header -->
+<header class="mb-16">
+<div class="flex items-center space-x-4 mb-4">
+<span class="w-12 h-px bg-primary"></span>
+<span class="font-label-caps text-label-caps text-primary tracking-widest">FACULTY OF INFORMATION TECHNOLOGY, UNIVERSITY OF MORATUWA</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6">Engineering Vanguard</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                The elite engineering task force behind Fusion 5. A multidisciplinary team of specialists guided by expert supervision, dedicated to high-precision robotic assembly and control systems.
+            </p>
+</header>
+<!-- Supervisor Section -->
+<section class="mb-24">
+<div class="flex items-center space-x-4 mb-8">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-widest text-primary/80">Strategic Lead</h3>
+<div class="flex-grow h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
+</div>
+<div class="glass-panel tech-border p-0 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 font-code-md text-code-md text-primary/50 z-20 bg-background/80 backdrop-blur-md border-b border-l border-primary/10">DIR-01</div>
+<div class="absolute -right-20 -top-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors duration-700 pointer-events-none"></div>
+<div class="flex flex-col md:flex-row relative z-10">
+<div class="w-full md:w-1/3 h-64 md:h-auto shrink-0 relative overflow-hidden tech-border grayscale hover:grayscale-0 transition-all duration-700 border-r-0 md:border-r border-b md:border-b-0 border-primary/20">
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+<div class="absolute inset-0 scanlines z-20"></div>
+<img class="w-full h-full object-cover object-top" data-alt="A professional portrait of an engineering supervisor in a high-tech academic environment, standing in front of subtle holographic blueprints. Deep blacks, glowing cyan accents, industrial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4EmKg4tPnxn1hNNzkVZbzE3q_S2bC7nVFtrytIrk7xH4WEUKOKJfV2v6aYZApbbZzwjHpbRHkhpQXizJCe4ab9ijsuyff3C0m8dBOmAEVP44K_MeAM_Il5Z4RDxv-4gSnEZNcWnEbqeQIdNEZ9j1ZrSfrlC5IxKQ9SJNapD3B4oJAJmIrGydsLdWwCw4Q1f_lpRf4-QtMuDQ_wI0K3tqro0YXEN4f9_2CzouaPxD2YGe5pimazhuKeQ"/>
+</div>
+<div class="flex-grow p-8 md:p-12 flex flex-col justify-center">
+<div class="flex items-center gap-4 mb-4">
+<div class="inline-block px-3 py-1 bg-primary/10 border border-primary/30 font-label-caps text-label-caps text-primary">PROJECT DIRECTOR</div>
+<div class="w-12 h-px bg-primary/30"></div>
+</div>
+<h2 class="font-display-lg text-4xl md:text-5xl text-on-surface mb-4 font-bold tracking-tight">Mr. B. H. Sudantha</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-3xl leading-relaxed">
+                            Providing strategic oversight and technical guidance for the Fusion 5 project. Expertise in industrial automation, control theory, and mechatronics engineering ensures rigorous academic and professional standards are maintained throughout the development lifecycle.
+                        </p>
+<div class="flex flex-wrap gap-3 mb-8">
+<span class="hud-tag">Industrial Automation</span>
+<span class="hud-tag">Control Theory</span>
+<span class="hud-tag">Mechatronics</span>
+</div>
+<div class="flex gap-4 mt-auto">
+<button class="flex items-center gap-2 px-6 py-3 border border-primary/30 text-primary hover:bg-primary/10 transition-colors font-code-md text-code-md bg-primary/5 tech-border">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                Connect
+                            </button>
+<button class="flex items-center gap-2 px-6 py-3 border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-colors font-code-md text-code-md bg-surface-container/30 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[18px]">article</span>
+                                Research Portfolio
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section>
+<div class="flex items-center space-x-4 mb-12">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-widest text-primary/80">Vanguard Operatives</h3>
+<div class="flex-grow h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Member 1: Raniru -->
+<div class="glass-panel tech-border flex flex-col h-full hover:bg-surface-container-high/50 transition-colors duration-300 group overflow-hidden">
+<div class="relative h-64 md:h-80 w-full overflow-hidden border-b border-primary/20">
+<div class="absolute top-4 right-4 z-20 px-2 py-1 bg-background/80 backdrop-blur-md border border-primary/20 font-code-md text-code-md text-primary/80">OP-01</div>
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+<div class="absolute inset-0 scanlines z-20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<img class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="Portrait of a young male engineering student leader, focused expression, dark high-tech background with subtle cyan lighting illuminating his face, professional industrial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQGrczqpOFM_Qmc90d0fyOuc-m1wU0yhroxmfzz67A2PMPpCvmdJ1rfyqgvoCIrz1rDv336XITURPY2B62Jmwbs6LGPsHN5gmzb8F_tlPA_DcPL-NoipPYQW_Q3TJwTUWNp5Ltw_lbFTXAw_hDAXFBDpzoAAyLIcYaNLvdhAS8eQgeLSVWG0z6OtoIWMZtx8zDD3fUOafwvbemUhnx1RbDre5ZIptFjdLeLuTAY4IzHBXW2goiWZv6Yw"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-4">
+<div class="inline-block px-2 py-1 bg-primary text-on-primary font-label-caps text-label-caps font-bold mb-3">COMMAND</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Raniru Chethmina</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        Project coordination, system architecture design, and integration oversight. Led the core structural assembly and overarching mechanical design strategy.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-primary/10">
+<span class="hud-tag">Systems Arch</span>
+<span class="hud-tag">Project Mgmt</span>
+<span class="hud-tag">Integration</span>
+</div>
+</div>
+</div>
+<!-- Member 2: Ravindu -->
+<div class="glass-panel tech-border flex flex-col h-full hover:bg-surface-container-high/50 transition-colors duration-300 group overflow-hidden">
+<div class="relative h-64 md:h-80 w-full overflow-hidden border-b border-primary/20">
+<div class="absolute top-4 right-4 z-20 px-2 py-1 bg-background/80 backdrop-blur-md border border-primary/20 font-code-md text-code-md text-primary/80">OP-02</div>
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+<div class="absolute inset-0 scanlines z-20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<img class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="Portrait of a young male engineering student, technical environment, dark background with subtle cyan grid patterns, professional industrial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvHl1ZAoR8tlWByqPbmjb1wmKZWnFH5aHXZvbnYuJIeActqr_Lvv8fy0zUbdtBOIz_Z4pqHtahq82gLiDRB4FvJ61h1t23qUreLvLfJJvmaA8TqMYa2HoqMw0aFigxQbdikbbCAj_f23XMYsO9I8lAdS3iJ0hk4btZIgWWD6CXi9KstWHsjcPHzl_NVkvJldxw3vDcyzQkMkzBSZ6kuseYo4WANprzqnfuEsMl3_MrMwh94KI-JURv4w"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-4">
+<div class="inline-block px-2 py-1 border border-outline text-on-surface-variant font-label-caps text-label-caps mb-3">ELECTRONICS LEAD</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Ravindu Saranga</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        Circuit design, PCB fabrication, and power distribution systems. Responsible for sensor integration and low-level microcontroller programming.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-primary/10">
+<span class="hud-tag">PCB Design</span>
+<span class="hud-tag">Embedded Sys</span>
+<span class="hud-tag">Firmware</span>
+</div>
+</div>
+</div>
+<!-- Member 3: Nesandu -->
+<div class="glass-panel tech-border flex flex-col h-full hover:bg-surface-container-high/50 transition-colors duration-300 group overflow-hidden">
+<div class="relative h-64 md:h-80 w-full overflow-hidden border-b border-primary/20">
+<div class="absolute top-4 right-4 z-20 px-2 py-1 bg-background/80 backdrop-blur-md border border-primary/20 font-code-md text-code-md text-primary/80">OP-03</div>
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+<div class="absolute inset-0 scanlines z-20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<img class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="Portrait of a young male engineering student, looking thoughtful, dark high-tech background with subtle cyan lighting, professional industrial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEuTAlzx-FYRS1V0CNpdAnFBI7Nbo8XqKIX6MCru-cxJ0eCbVAy7RKK6ASjDMMCxq_BnZyZGeSrTDMOKC0i2ncvFyOZB_VNMAzSTf-vX6EFOp3QletFXaXBdxdWgoz0n0wYh57vhz0jqitiXAZx4n_e4w8Z8uzm4nCViOef-2aCwMduslNdOjdXipHBqOBQeGRhOqEU8-dgb7gqENy-NwO8aGN8apa0iBhN4hXtjh_2jpBfaTos3LiXg"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-4">
+<div class="inline-block px-2 py-1 border border-outline text-on-surface-variant font-label-caps text-label-caps mb-3">SOFTWARE ENGINEER</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Nesandu</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        Development of control algorithms, user interface backend, and communication protocols. Implemented real-time data processing and telemetry.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-primary/10">
+<span class="hud-tag">Control Logic</span>
+<span class="hud-tag">Telemetry</span>
+<span class="hud-tag">UI/UX Backend</span>
+</div>
+</div>
+</div>
+<!-- Member 4: Pawani -->
+<div class="glass-panel tech-border flex flex-col h-full hover:bg-surface-container-high/50 transition-colors duration-300 group overflow-hidden">
+<div class="relative h-64 md:h-80 w-full overflow-hidden border-b border-primary/20">
+<div class="absolute top-4 right-4 z-20 px-2 py-1 bg-background/80 backdrop-blur-md border border-primary/20 font-code-md text-code-md text-primary/80">OP-04</div>
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+<div class="absolute inset-0 scanlines z-20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<img class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="Portrait of a young female engineering student, focused, dark high-tech background with subtle cyan lighting, professional industrial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBte4YQfzjQ3aI4ND2B2ixIwUhO8mYla7D-F48OQhniJ5IN41ZmLnKp_brjx_MZ-5waAAN1dPUr7vGOZsAok8TvjIrWKM4GtOLH7YGJVAV2MiZzWgYRCRoo0a2RCzApBeYrzeWLZMOrrDs0VTVc5TrmIsEWaQk7wK6L1tNhQmmSkL0fSBOe6BQ0CupYdCQ2w4BXQEBuZipbtaWBoiqUe2z83kd4VByl1bydZHlP1VxOAccmljn7xs7ZTA"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-4">
+<div class="inline-block px-2 py-1 border border-outline text-on-surface-variant font-label-caps text-label-caps mb-3">MECHANICAL DESIGN</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Pawani</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        3D modeling, stress analysis, and material selection. Ensured structural integrity and manufactured custom enclosures for sensitive electronics.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-primary/10">
+<span class="hud-tag">CAD/CAM</span>
+<span class="hud-tag">FEA Analysis</span>
+<span class="hud-tag">Materials</span>
+</div>
+</div>
+</div>
+<!-- Member 5: Janani -->
+<div class="glass-panel tech-border flex flex-col h-full hover:bg-surface-container-high/50 transition-colors duration-300 group overflow-hidden">
+<div class="relative h-64 md:h-80 w-full overflow-hidden border-b border-primary/20">
+<div class="absolute top-4 right-4 z-20 px-2 py-1 bg-background/80 backdrop-blur-md border border-primary/20 font-code-md text-code-md text-primary/80">OP-05</div>
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+<div class="absolute inset-0 scanlines z-20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<img class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="Portrait of a young female engineering student, analytical expression, dark high-tech background with subtle cyan grid patterns, professional industrial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrvI8dP7lNPHuD2e-hoJ6s0xwMQ4TaxRLr7U0aquX8fxcPTNgKdA6o0Skm08v07sANQ3fb-TRbafq0Z2UxWizCsgNWIJBLQOZWoeVYclzgtnWoO5wagYSfCQpV09dLFT-QiBIbc3mCLgpaE4kYBRY88tEuoXSHO065I1XJGnlVhnei_MfDUOYyilDSEzjc3VQ4iv2JiV2U5JW-vDgbWVgPSRBDgkcjrHYGE8H74ixQnftKXHeU_QY9jg"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="mb-4">
+<div class="inline-block px-2 py-1 border border-outline text-on-surface-variant font-label-caps text-label-caps mb-3">QA &amp; SAFETY</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Janani</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        Rigorous testing of all subsystems, implementing failsafes, and documentation. Ensured the final build met all academic and industrial safety standards.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-primary/10">
+<span class="hud-tag">QA Testing</span>
+<span class="hud-tag">Compliance</span>
+<span class="hud-tag">Safety Protocols</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest w-full border-t border-primary/10 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-8 w-full max-w-[1920px] mx-auto opacity-80 hover:opacity-100 transition-all duration-300 ease-out">
+<div class="font-label-caps text-label-caps text-on-surface mb-4 md:mb-0">
+                © 2024 University of Moratuwa | Fusion 5 Engineering Division
+            </div>
+<div class="flex space-x-6 font-code-md text-code-md text-on-tertiary-container">
+<a class="hover:text-primary transition-colors" href="#">Institutional Branding</a>
+<a class="hover:text-primary transition-colors" href="#">Research Lab</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-primary hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>
