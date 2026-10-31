@@ -12,25 +12,39 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('nav--scrolled', window.scrollY > 40);
 });
 
+function setMenuOpen(open) {
+  navLinks.classList.toggle('is-open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+}
 hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('is-open');
+  setMenuOpen(hamburger.getAttribute('aria-expanded') !== 'true');
 });
-
-// close mobile menu on link click
 navLinks.querySelectorAll('.nav__link').forEach(link => {
-  link.addEventListener('click', () => navLinks.classList.remove('is-open'));
+  link.addEventListener('click', () => setMenuOpen(false));
 });
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && hamburger.getAttribute('aria-expanded') === 'true') {
+    setMenuOpen(false);
+    hamburger.focus();
+  }
+});
+document.addEventListener('click', event => {
+  if (!nav.contains(event.target)) setMenuOpen(false);
+});
+window.matchMedia('(min-width: 769px)').addEventListener('change', () => setMenuOpen(false));
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 // ─── PARTICLE CANVAS ──────────────────────────────
 (function initParticles() {
   const container = document.getElementById('particles');
-  if (!container) return;
+  if (!container || reducedMotion.matches) return;
 
   const canvas = document.createElement('canvas');
   canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;';
   container.appendChild(canvas);
 
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
   let W, H, particles = [];
 
   function resize() {
@@ -75,6 +89,10 @@ navLinks.querySelectorAll('.nav__link').forEach(link => {
   }
 
   function loop() {
+    if (document.hidden) {
+      requestAnimationFrame(loop);
+      return;
+    }
     ctx.clearRect(0, 0, W, H);
     particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(loop);
@@ -88,6 +106,10 @@ navLinks.querySelectorAll('.nav__link').forEach(link => {
 // ─── COUNTER ANIMATION ────────────────────────────
 function animateCounter(el) {
   const target = parseInt(el.dataset.count, 10);
+  if (reducedMotion.matches) {
+    el.textContent = target.toLocaleString();
+    return;
+  }
   const dur    = 2000;
   const step   = 16;
   const steps  = dur / step;
@@ -147,13 +169,11 @@ function openLightbox(idx) {
   lbImg.src = img.src;
   lbImg.alt = img.alt;
   lbCaption.textContent = cap ? cap.textContent : '';
-  lightbox.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  ProjectUI.open(lightbox);
 }
 
 function closeLightbox() {
-  lightbox.classList.remove('is-open');
-  document.body.style.overflow = '';
+  ProjectUI.close(lightbox);
 }
 
 function prevImage() { openLightbox((currentIdx - 1 + galleryItems.length) % galleryItems.length); }
@@ -161,6 +181,7 @@ function nextImage() { openLightbox((currentIdx + 1) % galleryItems.length); }
 
 galleryItems.forEach((item, idx) => {
   item.addEventListener('click', () => openLightbox(idx));
+  ProjectUI.makeButton(item, 'Open photo: ' + item.querySelector('img').alt, () => openLightbox(idx));
 });
 
 lbClose.addEventListener('click', closeLightbox);
@@ -174,8 +195,8 @@ lightbox.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (!lightbox.classList.contains('is-open')) return;
   if (e.key === 'Escape')      closeLightbox();
-  if (e.key === 'ArrowLeft')   prevImage();
-  if (e.key === 'ArrowRight')  nextImage();
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevImage(); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); nextImage(); }
 });
 
 // ─── ACTIVE NAV LINK ──────────────────────────────
@@ -202,6 +223,7 @@ const orbImg   = document.getElementById('hero-orb-img');
 const orbImgs  = ['assets/images/hologram1.jpg','assets/images/hologram2.jpg'];
 let orbIdx = 0;
 setInterval(() => {
+  if (!orbImg || document.hidden || reducedMotion.matches) return;
   orbIdx = (orbIdx + 1) % orbImgs.length;
   orbImg.style.opacity = '0';
   setTimeout(() => { orbImg.src = orbImgs[orbIdx]; orbImg.style.opacity = '1'; }, 400);

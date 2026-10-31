@@ -12,6 +12,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
     rel="stylesheet" />
+  <meta name="theme-color" content="#090909" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -34,13 +36,14 @@
       <button class="btn btn--primary nav__cta" id="nav-cta"
         onclick="document.getElementById('showcase').scrollIntoView({behavior:'smooth'})">View Demo</button>
       <button class="nav__hamburger" id="hamburger"
-        aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        aria-label="Toggle menu" aria-controls="nav-links" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <section id="hero" class="hero">
     <div class="hero__grid-bg"></div>
     <div class="hero__particles" id="particles"></div>
+    <div class="hero__layout">
     <div class="hero__content">
       <div class="hero__eyebrow">
         <span class="badge" id="badge-project">PROJECT</span>
@@ -90,6 +93,7 @@
             id="hero-orb-img" />
         </div>
       </div>
+    </div>
     </div>
     <a href="#about" class="hero__scroll-cue" id="scroll-cue">
       <span class="hero__scroll-label">SCROLL</span>
@@ -318,7 +322,7 @@
         <p class="section-subtitle">Live holographic display demonstrations from the final evaluation day.</p>
       </div>
       <div class="showcase__hero-video glass-card" id="showcase-main-video">
-        <video id="main-video" src="assets/videos/demo1.mp4" controls preload="metadata"
+        <video id="main-video" src="assets/videos/demo1.mp4" controls playsinline preload="metadata"
           poster="assets/images/evaluation/1.jpeg"></video>
         <div class="showcase__video-label">
           <span class="mono">VID_001</span>
@@ -327,12 +331,12 @@
       </div>
       <div class="showcase__secondary-videos" id="showcase-secondary">
         <div class="showcase__vid-card glass-card" id="showcase-vid-2">
-          <video src="assets/videos/build1.mov" controls preload="metadata"
+          <video src="assets/videos/build1.mp4" controls playsinline preload="metadata"
             poster="assets/images/evaluation/3.jpeg"></video>
           <div class="showcase__vid-label mono">VID_002 · Build process</div>
         </div>
         <div class="showcase__vid-card glass-card" id="showcase-vid-3">
-          <video src="assets/videos/build2.mov" controls preload="metadata"
+          <video src="assets/videos/build2.mp4" controls playsinline preload="metadata"
             poster="assets/images/evaluation/5.jpeg"></video>
           <div class="showcase__vid-label mono">VID_003 · Assembly test run</div>
         </div>
@@ -405,18 +409,18 @@
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Team photo gallery" aria-hidden="true" inert>
     <button class="lightbox__close" id="lightbox-close" aria-label="Close lightbox">&times;</button>
     <button class="lightbox__prev" id="lightbox-prev" aria-label="Previous image">&#8249;</button>
     <button class="lightbox__next" id="lightbox-next" aria-label="Next image">&#8250;</button>
     <div class="lightbox__img-wrap">
-      <img src="" alt="" id="lightbox-img" />
+      <img alt="" id="lightbox-img" />
       <span class="lightbox__caption mono" id="lightbox-caption"></span>
     </div>
   </div>
 
   <!-- ═══════════════════ STL VIEWER MODAL ═══════════════════ -->
-  <div class="stl-modal" id="stl-modal" role="dialog" aria-modal="true" aria-label="3D Model Viewer">
+  <div class="stl-modal" id="stl-modal" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="3D Model Viewer">
     <div class="stl-modal__panel">
       <!-- Header -->
       <div class="stl-modal__header">
@@ -439,7 +443,7 @@
         <div class="stl-modal__viewer">
           <div class="stl-modal__canvas-wrap">
             <canvas id="stl-canvas"></canvas>
-            <div class="stl-modal__loading" id="stl-loading">
+            <div class="stl-modal__loading" id="stl-loading" role="status" aria-live="polite">
               <div class="stl-spinner"></div>
               <span class="mono">Loading model…</span>
             </div>
@@ -455,7 +459,7 @@
   </div>
 
   <!-- ═══════════════════ ELECTRONICS VIEWER MODAL ═══════════════════ -->
-  <div class="stl-modal elec-modal" id="elec-modal" role="dialog" aria-modal="true" aria-label="Electronics Component Viewer">
+  <div class="stl-modal elec-modal" id="elec-modal" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="Electronics Component Viewer">
     <div class="stl-modal__panel elec-modal__panel">
       <!-- Header -->
       <div class="stl-modal__header">
@@ -478,7 +482,7 @@
         <div class="elec-modal__viewer">
           <div class="elec-modal__display">
             <div class="elec-modal__img-card">
-              <img id="elec-img" src="" alt="Electronic Component" class="elec-modal__img" />
+              <img id="elec-img" alt="Electronic Component" class="elec-modal__img" />
               <div class="elec-modal__img-badge mono" id="elec-category">—</div>
             </div>
             <div class="elec-modal__details">
@@ -506,7 +510,7 @@
   </div>
 
   <!-- ═══════════════════ SOFTWARE VIEWER MODAL ═══════════════════ -->
-  <div class="stl-modal soft-modal" id="soft-modal" role="dialog" aria-modal="true" aria-label="Software Architecture & Source Code">
+  <div class="stl-modal soft-modal" id="soft-modal" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="Software Architecture & Source Code">
     <div class="stl-modal__panel soft-modal__panel">
       <!-- Header -->
       <div class="stl-modal__header">
@@ -571,6 +575,7 @@
   <script src="assets/js/three.min.js"></script>
   <script src="assets/js/STLLoader.js"></script>
   <script src="assets/js/OrbitControls.js"></script>
+  <script src="ui.js"></script>
   <script src="script.js"></script>
   <script src="stl-viewer.js"></script>
   <script src="electronics-viewer.js"></script>

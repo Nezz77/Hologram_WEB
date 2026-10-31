@@ -165,19 +165,18 @@ SOFT_MODULES.forEach((mod, idx) => {
     </div>
   `;
   li.addEventListener('click', () => loadSoftModule(idx));
+  ProjectUI.makeButton(li, mod.name, () => loadSoftModule(idx));
   softPartList.appendChild(li);
 });
 
 /* ── Modal open / close ─────────────────────────── */
 window.openSoftwareModal = function () {
-  softModal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  ProjectUI.open(softModal);
   loadSoftModule(currentSoftIdx || 0);
 };
 
 function closeSoftModal() {
-  softModal.classList.remove('is-open');
-  document.body.style.overflow = '';
+  ProjectUI.close(softModal);
 }
 
 softCloseBtn.addEventListener('click', closeSoftModal);
@@ -216,6 +215,7 @@ function loadSoftModule(idx) {
   /* Highlight active item */
   softPartList.querySelectorAll('.stl-part-list__item').forEach((li, i) => {
     li.classList.toggle('active', i === idx);
+    li.setAttribute('aria-pressed', String(i === idx));
   });
 
   const activeLi = softPartList.querySelector('.active');

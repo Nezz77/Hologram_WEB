@@ -117,6 +117,7 @@ const elecSpecsEl   = document.getElementById('elec-specs');
 const elecLinkEl    = document.getElementById('elec-link');
 
 let currentElecIdx = 0;
+let elecLoadVersion = 0;
 
 /* ── Build sidebar list ─────────────────────────── */
 ELEC_COMPONENTS.forEach((comp, idx) => {
@@ -131,19 +132,18 @@ ELEC_COMPONENTS.forEach((comp, idx) => {
     </div>
   `;
   li.addEventListener('click', () => loadElecComponent(idx));
+  ProjectUI.makeButton(li, comp.name, () => loadElecComponent(idx));
   elecPartList.appendChild(li);
 });
 
 /* ── Modal open / close ─────────────────────────── */
 window.openElectronicsModal = function () {
-  elecModal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  ProjectUI.open(elecModal);
   loadElecComponent(currentElecIdx || 0);
 };
 
 function closeElecModal() {
-  elecModal.classList.remove('is-open');
-  document.body.style.overflow = '';
+  ProjectUI.close(elecModal);
 }
 
 elecCloseBtn.addEventListener('click', closeElecModal);
@@ -175,6 +175,7 @@ if (elecCard) {
 
 /* ── Load component details ─────────────────────── */
 function loadElecComponent(idx) {
+  const loadVersion = ++elecLoadVersion;
   currentElecIdx = idx;
   const comp = ELEC_COMPONENTS[idx];
   if (!comp) return;
@@ -182,6 +183,7 @@ function loadElecComponent(idx) {
   /* Highlight active item */
   elecPartList.querySelectorAll('.stl-part-list__item').forEach((li, i) => {
     li.classList.toggle('active', i === idx);
+    li.setAttribute('aria-pressed', String(i === idx));
   });
 
   const activeLi = elecPartList.querySelector('.active');
@@ -199,12 +201,15 @@ function loadElecComponent(idx) {
   elecImg.style.opacity = '0';
   const newImg = new Image();
   newImg.onload = () => {
+    if (loadVersion !== elecLoadVersion) return;
     elecImg.src = comp.image;
     elecImg.alt = comp.name;
     elecImg.style.opacity = '1';
   };
   newImg.onerror = () => {
-    elecImg.src = comp.image;
+    if (loadVersion !== elecLoadVersion) return;
+    elecImg.removeAttribute('src');
+    elecImg.alt = comp.name + ' — image unavailable';
     elecImg.style.opacity = '1';
   };
   newImg.src = comp.image;

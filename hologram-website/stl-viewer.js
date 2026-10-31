@@ -30,6 +30,9 @@ const partNameEl   = document.getElementById('stl-part-name');
 let renderer, scene, camera, controls, currentMesh, animId;
 let initialized = false;
 let currentPartIdx = 0;
+let loadVersion = 0;
+let openTimer;
+let resizeTimer;
 
 /* ── Build sidebar list ─────────────────────────── */
 STL_PARTS.forEach((part, idx) => {
@@ -44,27 +47,42 @@ STL_PARTS.forEach((part, idx) => {
     </div>
   `;
   li.addEventListener('click', () => loadPart(idx));
+  ProjectUI.makeButton(li, part.name, () => loadPart(idx));
   partList.appendChild(li);
 });
 
 /* ── Modal open / close ─────────────────────────── */
 window.openStlModal = function () {
-  modal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  ProjectUI.open(modal);
   if (!initialized) {
-    initThree();
-    initialized = true;
+    try {
+      initThree();
+      initialized = true;
+    } catch (error) {
+      loadingEl.classList.remove('hidden');
+      loadingEl.textContent = '3D preview is unavailable. Try a browser with WebGL enabled.';
+      renderer?.dispose();
+      renderer = null;
+      return;
+    }
   }
-  setTimeout(() => {
+  clearTimeout(openTimer);
+  clearTimeout(resizeTimer);
+  openTimer = setTimeout(() => {
     resizeRenderer();
-    loadPart(currentPartIdx || 0);
+    startRendering();
+    if (!currentMesh) loadPart(currentPartIdx);
   }, 50);
-  setTimeout(resizeRenderer, 360);
+  resizeTimer = setTimeout(resizeRenderer, 360);
 };
 
 function closeStlModal() {
-  modal.classList.remove('is-open');
-  document.body.style.overflow = '';
+  ProjectUI.close(modal);
+  clearTimeout(openTimer);
+  clearTimeout(resizeTimer);
+  cancelAnimationFrame(animId);
+  animId = null;
+  loadVersion++;
 }
 
 closeBtn.addEventListener('click', closeStlModal);
@@ -123,7 +141,7 @@ function initThree() {
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
-  controls.autoRotate = true;
+  controls.autoRotate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   controls.autoRotateSpeed = 1.5;
   controls.minDistance   = 5;
   controls.maxDistance   = 2000;
@@ -134,7 +152,11 @@ function initThree() {
   resizeRenderer();
   window.addEventListener('resize', resizeRenderer);
 
-  /* Render loop */
+}
+
+/* Stop GPU work while the viewer or page is hidden. */
+function startRendering() {
+  if (animId != null || !renderer || document.hidden || !modal.classList.contains('is-open')) return;
   function animate() {
     animId = requestAnimationFrame(animate);
     controls.update();
@@ -142,6 +164,13 @@ function initThree() {
   }
   animate();
 }
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    cancelAnimationFrame(animId);
+    animId = null;
+  } else startRendering();
+});
 
 function resizeRenderer() {
   if (!renderer) return;
@@ -157,13 +186,15 @@ function resizeRenderer() {
 
 /* ── Load a part ────────────────────────────────── */
 function loadPart(idx) {
-  currentPartIdx = idx;
   const part = STL_PARTS[idx];
-  if (!part) return;
+  if (!part || !initialized) return;
+  currentPartIdx = idx;
+  const version = ++loadVersion;
 
   /* Highlight sidebar */
   partList.querySelectorAll('.stl-part-list__item').forEach((li, i) => {
     li.classList.toggle('active', i === idx);
+    li.setAttribute('aria-pressed', String(i === idx));
   });
 
   /* Scroll sidebar item into view */
@@ -199,6 +230,10 @@ function loadPart(idx) {
   loader.load(
     fileUrl,
     (geometry) => {
+      if (version !== loadVersion) {
+        geometry.dispose();
+        return;
+      }
       geometry.computeVertexNormals();
       geometry.center();
 
@@ -219,21 +254,27 @@ function loadPart(idx) {
       const size   = box.getSize(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z) || 50;
       const fov    = camera.fov * (Math.PI / 180);
-      let   dist   = Math.abs(maxDim / (2 * Math.tan(fov / 2)));
-      dist *= 1.8;
+      const horizontalFov = 2 * Math.atan(Math.tan(fov / 2) * camera.aspect);
+      geometry.computeBoundingSphere();
+      const radius = geometry.boundingSphere.radius || maxDim / 2;
+      const dist = radius / Math.sin(Math.min(fov, horizontalFov) / 2) * 1.15;
 
-      camera.position.set(dist * 0.7, dist * 0.5, dist * 0.9);
+      camera.position.set(0.7, 0.5, 0.9).normalize().multiplyScalar(dist);
+      camera.near = Math.max(radius / 1000, 0.01);
+      camera.far = Math.max(radius * 100, dist * 4);
+      camera.updateProjectionMatrix();
       camera.lookAt(0, 0, 0);
       controls.target.set(0, 0, 0);
       controls.minDistance = maxDim * 0.2;
       controls.maxDistance = maxDim * 8;
-      controls.autoRotate = true;
+      controls.autoRotate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       controls.update();
 
       scene.add(currentMesh);
       loadingEl.classList.add('hidden');
     },
     (xhr) => {
+      if (version !== loadVersion) return;
       if (xhr.lengthComputable && xhr.total > 0) {
         const percent = Math.round((xhr.loaded / xhr.total) * 100);
         const span = loadingEl.querySelector('span');
@@ -241,6 +282,7 @@ function loadPart(idx) {
       }
     },
     (err) => {
+      if (version !== loadVersion) return;
       console.error('STL load error:', err);
       const isFileProtocol = window.location.protocol === 'file:';
       loadingEl.innerHTML = isFileProtocol
