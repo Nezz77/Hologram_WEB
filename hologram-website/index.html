@@ -352,35 +352,65 @@
         <p class="section-subtitle">Engineering students who designed, fabricated, and delivered the Hologram Array —
           Evaluation Day photos.</p>
       </div>
-      <div class="gallery" id="gallery">
-        <div class="gallery__item gallery__item--wide" id="gallery-1">
-          <img src="assets/images/evaluation/1.jpeg" alt="Fusion 5 team evaluation day" loading="lazy" />
-          <div class="gallery__caption"><span class="mono">GROUP · 01</span></div>
+      <div class="gallery" id="gallery" role="region" aria-label="Evaluation day photo journal">
+        <div class="gallery__masthead mono">
+          <span><span class="gallery__status-dot" aria-hidden="true"></span> EVALUATION DAY / PHOTO JOURNAL</span>
+          <span>07 FRAMES</span>
         </div>
-        <div class="gallery__item" id="gallery-2">
-          <img src="assets/images/evaluation/2.jpeg" alt="Fusion 5 team evaluation day" loading="lazy" />
-          <div class="gallery__caption"><span class="mono">TEAM · 02</span></div>
+        <div class="gallery__spread">
+          <div class="gallery__image-panel">
+            <button class="gallery__stage" id="gallery-open" type="button" aria-label="Open selected photo in full view">
+              <img id="gallery-preview" src="assets/images/evaluation/1.jpeg" alt="Fusion 5 team and hologram display at the final evaluation" width="1280" height="960" loading="lazy" decoding="async" />
+              <span class="gallery__expand mono">FULL VIEW <span aria-hidden="true">↗</span></span>
+            </button>
+          </div>
+          <div class="gallery__notes">
+            <span class="gallery__kicker mono">THE PEOPLE<br />BEHIND THE ARRAY.</span>
+            <div class="gallery__story" aria-live="polite" aria-atomic="true">
+              <span class="gallery__category mono" id="gallery-category">GROUP · 01</span>
+              <h3 class="gallery__title" id="gallery-photo-title">At the final evaluation</h3>
+              <p class="gallery__description" id="gallery-description">Fusion 5 team and hologram display at the final evaluation</p>
+            </div>
+            <div class="gallery__navigation">
+              <div class="gallery__counter mono"><span id="gallery-current">01</span><span class="gallery__counter-total"> / 07</span></div>
+              <div class="gallery__arrows">
+                <button class="gallery__arrow" id="gallery-prev" type="button" aria-label="Previous gallery photo">←</button>
+                <button class="gallery__arrow" id="gallery-next" type="button" aria-label="Next gallery photo">→</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="gallery__item" id="gallery-3">
-          <img src="assets/images/evaluation/3.jpeg" alt="Evaluation day" loading="lazy" />
-          <div class="gallery__caption"><span class="mono">EVAL · 03</span></div>
+        <div class="gallery__filmstrip" role="group" aria-label="Choose a photo">
+          <button class="gallery__item is-selected" id="gallery-1" type="button" data-title="At the final evaluation" data-caption="GROUP · 01" aria-label="Select photo 1: At the final evaluation" aria-pressed="true">
+            <span class="gallery__thumb"><img src="assets/images/evaluation/1.jpeg" alt="Fusion 5 team and hologram display at the final evaluation" width="1280" height="960" loading="lazy" decoding="async" /></span>
+            <span class="gallery__caption mono"><span>01</span><span class="gallery__selected-mark" aria-hidden="true">↗</span></span>
+          </button>
+          <button class="gallery__item" id="gallery-2" type="button" data-title="A moment outside" data-caption="TEAM · 02" aria-label="Select photo 2: A moment outside" aria-pressed="false">
+            <span class="gallery__thumb"><img src="assets/images/evaluation/2.jpeg" alt="Fusion 5 team seated outside the faculty building" width="1280" height="960" loading="lazy" decoding="async" /></span>
+            <span class="gallery__caption mono"><span>02</span><span class="gallery__selected-mark" aria-hidden="true">↗</span></span>
+          </button>
+          <button class="gallery__item" id="gallery-3" type="button" data-title="The people behind it" data-caption="EVAL · 03" aria-label="Select photo 3: The people behind it" aria-pressed="false">
+            <span class="gallery__thumb"><img src="assets/images/evaluation/3.jpeg" alt="Fusion 5 team with the hologram display outside the faculty" width="960" height="1280" loading="lazy" decoding="async" /></span>
+            <span class="gallery__caption mono"><span>03</span><span class="gallery__selected-mark" aria-hidden="true">↗</span></span>
+          </button>
+          <button class="gallery__item" id="gallery-4" type="button" data-title="Built together" data-caption="DEMO · 04" aria-label="Select photo 4: Built together" aria-pressed="false">
+            <span class="gallery__thumb"><img src="assets/images/evaluation/4.jpeg" alt="Fusion 5 group selfie with the hologram array" width="960" height="1280" loading="lazy" decoding="async" /></span>
+            <span class="gallery__caption mono"><span>04</span><span class="gallery__selected-mark" aria-hidden="true">↗</span></span>
+          </button>
+          <button class="gallery__item" id="gallery-5" type="button" data-title="One project. Many hands." data-caption="EVAL · 05" aria-label="Select photo 5: One project. Many hands." aria-pressed="false">
+            <span class="gallery__thumb"><img src="assets/images/evaluation/5.jpeg" alt="Fusion 5 team gathered around the hologram display" width="960" height="1280" loading="lazy" decoding="async" /></span>
+            <span class="gallery__caption mono"><span>05</span><span class="gallery__selected-mark" aria-hidden="true">↗</span></span>
+          </button>
+          <button class="gallery__item" id="gallery-6" type="button" data-title="Between the demos" data-caption="GROUP · 06" aria-label="Select photo 6: Between the demos" aria-pressed="false">
+            <span class="gallery__thumb"><img src="assets/images/evaluation/6.jpeg" alt="Fusion 5 teammates and the hologram array outside the faculty" width="960" height="1280" loading="lazy" decoding="async" /></span>
+            <span class="gallery__caption mono"><span>06</span><span class="gallery__selected-mark" aria-hidden="true">↗</span></span>
+          </button>
+          <button class="gallery__item" id="gallery-7" type="button" data-title="A day to remember" data-caption="FULL TEAM · 07" aria-label="Select photo 7: A day to remember" aria-pressed="false">
+            <span class="gallery__thumb"><img src="assets/images/evaluation/7.jpeg" alt="Fusion 5 teammates taking a selfie beside the hologram display" width="1280" height="960" loading="lazy" decoding="async" /></span>
+            <span class="gallery__caption mono"><span>07</span><span class="gallery__selected-mark" aria-hidden="true">↗</span></span>
+          </button>
         </div>
-        <div class="gallery__item gallery__item--tall" id="gallery-4">
-          <img src="assets/images/evaluation/4.jpeg" alt="Hologram demo evaluation" loading="lazy" />
-          <div class="gallery__caption"><span class="mono">DEMO · 04</span></div>
-        </div>
-        <div class="gallery__item" id="gallery-5">
-          <img src="assets/images/evaluation/5.jpeg" alt="Team evaluation" loading="lazy" />
-          <div class="gallery__caption"><span class="mono">EVAL · 05</span></div>
-        </div>
-        <div class="gallery__item" id="gallery-6">
-          <img src="assets/images/evaluation/6.jpeg" alt="Fusion 5 team" loading="lazy" />
-          <div class="gallery__caption"><span class="mono">GROUP · 06</span></div>
-        </div>
-        <div class="gallery__item gallery__item--wide" id="gallery-7">
-          <img src="assets/images/evaluation/7.jpeg" alt="Fusion 5 full team" loading="lazy" />
-          <div class="gallery__caption"><span class="mono">FULL TEAM · 07</span></div>
-        </div>
+        <div class="gallery__footnote mono"><span>SELECT A FRAME TO EXPLORE</span><span class="gallery__desktop-hint">OPEN THE PHOTO FOR FULL VIEW ↗</span><span class="gallery__mobile-hint">SWIPE TO BROWSE ↔</span></div>
       </div>
     </div>
   </section>
@@ -410,13 +440,20 @@
   </footer>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Team photo gallery" aria-hidden="true" inert>
-    <button class="lightbox__close" id="lightbox-close" aria-label="Close lightbox">&times;</button>
-    <button class="lightbox__prev" id="lightbox-prev" aria-label="Previous image">&#8249;</button>
-    <button class="lightbox__next" id="lightbox-next" aria-label="Next image">&#8250;</button>
-    <div class="lightbox__img-wrap">
-      <img alt="" id="lightbox-img" />
-      <span class="lightbox__caption mono" id="lightbox-caption"></span>
+    <header class="lightbox__header">
+      <span class="lightbox__label mono">FUSION 5 <span>/ PHOTO JOURNAL</span></span>
+      <button class="lightbox__close" id="lightbox-close" type="button" aria-label="Close photo viewer">×</button>
+    </header>
+    <div class="lightbox__img-wrap" id="lightbox-image-area">
+      <img alt="" id="lightbox-img" decoding="async" />
     </div>
+    <footer class="lightbox__footer">
+      <div class="lightbox__info" aria-live="polite" aria-atomic="true"><span class="lightbox__index mono" id="lightbox-counter">01 / 07</span><span class="lightbox__caption" id="lightbox-caption">At the final evaluation</span></div>
+      <div class="lightbox__navigation">
+        <button class="lightbox__prev" id="lightbox-prev" type="button" aria-label="Previous image">←</button>
+        <button class="lightbox__next" id="lightbox-next" type="button" aria-label="Next image">→</button>
+      </div>
+    </footer>
   </div>
 
   <!-- ═══════════════════ STL VIEWER MODAL ═══════════════════ -->
@@ -577,6 +614,7 @@
   <script src="assets/js/OrbitControls.js"></script>
   <script src="ui.js"></script>
   <script src="script.js"></script>
+  <script src="gallery.js"></script>
   <script src="stl-viewer.js"></script>
   <script src="electronics-viewer.js"></script>
   <script src="software-viewer.js"></script>

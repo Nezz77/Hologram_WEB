@@ -132,7 +132,7 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.glass-card, .section-header, .hero__stat, .timeline__item, .gallery__item, .badge, .tag, .about__lead, .about__body').forEach(el => {
+document.querySelectorAll('.glass-card, .section-header, .hero__stat, .timeline__item, .badge, .tag, .about__lead, .about__body').forEach(el => {
   el.classList.add('reveal');
   revealObserver.observe(el);
 });
@@ -149,55 +149,6 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 const statsEl = document.getElementById('hero-stats');
 if (statsEl) counterObserver.observe(statsEl);
-
-// ─── LIGHTBOX ─────────────────────────────────────
-const lightbox    = document.getElementById('lightbox');
-const lbImg       = document.getElementById('lightbox-img');
-const lbCaption   = document.getElementById('lightbox-caption');
-const lbClose     = document.getElementById('lightbox-close');
-const lbPrev      = document.getElementById('lightbox-prev');
-const lbNext      = document.getElementById('lightbox-next');
-
-const galleryItems = Array.from(document.querySelectorAll('.gallery__item'));
-let currentIdx = 0;
-
-function openLightbox(idx) {
-  currentIdx = idx;
-  const item = galleryItems[idx];
-  const img  = item.querySelector('img');
-  const cap  = item.querySelector('.gallery__caption span');
-  lbImg.src = img.src;
-  lbImg.alt = img.alt;
-  lbCaption.textContent = cap ? cap.textContent : '';
-  ProjectUI.open(lightbox);
-}
-
-function closeLightbox() {
-  ProjectUI.close(lightbox);
-}
-
-function prevImage() { openLightbox((currentIdx - 1 + galleryItems.length) % galleryItems.length); }
-function nextImage() { openLightbox((currentIdx + 1) % galleryItems.length); }
-
-galleryItems.forEach((item, idx) => {
-  item.addEventListener('click', () => openLightbox(idx));
-  ProjectUI.makeButton(item, 'Open photo: ' + item.querySelector('img').alt, () => openLightbox(idx));
-});
-
-lbClose.addEventListener('click', closeLightbox);
-lbPrev.addEventListener('click', prevImage);
-lbNext.addEventListener('click', nextImage);
-
-lightbox.addEventListener('click', e => {
-  if (e.target === lightbox) closeLightbox();
-});
-
-document.addEventListener('keydown', e => {
-  if (!lightbox.classList.contains('is-open')) return;
-  if (e.key === 'Escape')      closeLightbox();
-  if (e.key === 'ArrowLeft') { e.preventDefault(); prevImage(); }
-  if (e.key === 'ArrowRight') { e.preventDefault(); nextImage(); }
-});
 
 // ─── ACTIVE NAV LINK ──────────────────────────────
 const sections = document.querySelectorAll('section[id]');
