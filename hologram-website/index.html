@@ -486,6 +486,23 @@
             </div>
             <div class="stl-modal__controls-hint mono">Drag to rotate · Scroll to zoom · Right-drag to pan</div>
           </div>
+          <div class="stl-color-controls" role="group" aria-label="Model colour">
+            <span class="stl-color-controls__label mono">MODEL COLOUR</span>
+            <div class="stl-color-presets" role="group" aria-label="Model colour presets">
+              <button class="stl-color-swatch" type="button" data-stl-color="#00daf3" style="--swatch-color:#00daf3" aria-label="Cyan model colour" aria-pressed="true"></button>
+              <button class="stl-color-swatch" type="button" data-stl-color="#e8e8e8" style="--swatch-color:#e8e8e8" aria-label="White model colour" aria-pressed="false"></button>
+              <button class="stl-color-swatch" type="button" data-stl-color="#ffb547" style="--swatch-color:#ffb547" aria-label="Amber model colour" aria-pressed="false"></button>
+              <button class="stl-color-swatch" type="button" data-stl-color="#a78bfa" style="--swatch-color:#a78bfa" aria-label="Violet model colour" aria-pressed="false"></button>
+              <button class="stl-color-swatch" type="button" data-stl-color="#63dfaa" style="--swatch-color:#63dfaa" aria-label="Green model colour" aria-pressed="false"></button>
+              <button class="stl-color-swatch" type="button" data-stl-color="#ff647c" style="--swatch-color:#ff647c" aria-label="Rose model colour" aria-pressed="false"></button>
+            </div>
+            <label class="stl-color-custom mono" for="stl-color">
+              Custom
+              <input type="color" id="stl-color" value="#00daf3" aria-label="Custom model colour" />
+              <output id="stl-color-value" for="stl-color">#00DAF3</output>
+            </label>
+            <button class="stl-color-reset mono" id="stl-color-reset" type="button">Reset</button>
+          </div>
           <div class="stl-modal__part-info" id="stl-part-info">
             <span class="mono stl-part-name" id="stl-part-name">—</span>
             <span class="mono stl-part-ext">.STL</span>

@@ -756,6 +756,43 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .stl-part-name { font-size: 13px; font-weight: 700; color: var(--white); }
 .stl-part-ext  { font-size: 11px; color: var(--cyan); }
 
+/* Colour controls stay below the canvas so they never cover the model. */
+.stl-color-controls {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 12px;
+  padding: 12px 20px; border-top: 1px solid var(--glass-border);
+  background: #101415; flex-shrink: 0;
+}
+.stl-color-controls__label { font-size: 9px; letter-spacing: 0.08em; color: var(--muted); }
+.stl-color-presets { display: flex; align-items: center; gap: 6px; }
+.stl-color-swatch {
+  width: 36px; height: 36px; display: grid; place-items: center;
+  border: 1px solid transparent; background: transparent; position: relative;
+}
+.stl-color-swatch::before { content: ''; width: 20px; height: 20px; border-radius: 50%; background: var(--swatch-color); }
+.stl-color-swatch:hover { background: rgba(255,255,255,0.05); }
+.stl-color-swatch[aria-pressed="true"] { border-color: var(--cyan); background: var(--cyan-dim); }
+.stl-color-swatch[aria-pressed="true"]::after {
+  content: ''; position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  background: #090909; box-shadow: 0 0 0 1px rgba(255,255,255,0.8);
+}
+.stl-color-custom { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; color: var(--muted); }
+.stl-color-custom input {
+  width: 36px; height: 36px; padding: 4px; cursor: pointer; border-radius: 0;
+  border: 1px solid var(--glass-border); background: #090909;
+}
+.stl-color-custom output { color: var(--white); min-width: 7ch; font-size: 10px; }
+.stl-color-reset { min-height: 36px; padding: 0 10px; border: 1px solid var(--glass-border); color: var(--muted); font-size: 10px; }
+.stl-color-reset:hover { color: var(--cyan); border-color: var(--cyan); }
+
+@media (max-width: 720px) {
+  .stl-color-controls { padding: 10px 16px; gap: 8px 12px; }
+  .stl-color-controls__label { width: 100%; }
+  .stl-color-presets { width: 100%; }
+  .stl-color-swatch { height: 40px; }
+  .stl-color-custom input, .stl-color-reset { min-height: 40px; }
+  .stl-color-reset { margin-left: auto; }
+}
+
 /* Responsive */
 @media (max-width: 720px) {
   .stl-modal__body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }

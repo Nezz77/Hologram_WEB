@@ -25,6 +25,10 @@ const partList     = document.getElementById('stl-part-list');
 const canvas       = document.getElementById('stl-canvas');
 const loadingEl    = document.getElementById('stl-loading');
 const partNameEl   = document.getElementById('stl-part-name');
+const colorInput   = document.getElementById('stl-color');
+const colorValue   = document.getElementById('stl-color-value');
+const colorReset   = document.getElementById('stl-color-reset');
+const colorPresets = [...modal.querySelectorAll('[data-stl-color]')];
 
 /* ── Three.js state ─────────────────────────────── */
 let renderer, scene, camera, controls, currentMesh, animId;
@@ -33,6 +37,43 @@ let currentPartIdx = 0;
 let loadVersion = 0;
 let openTimer;
 let resizeTimer;
+
+/* One colour preference applies to every model, including the exploded mesh. */
+const DEFAULT_MODEL_COLOR = '#00daf3';
+const MODEL_COLOR_STORAGE_KEY = 'fusion5.stl.modelColor';
+const validModelColor = value => /^#[0-9a-f]{6}$/i.test(value);
+let selectedModelColor = DEFAULT_MODEL_COLOR;
+try {
+  const savedColor = localStorage.getItem(MODEL_COLOR_STORAGE_KEY);
+  if (validModelColor(savedColor)) selectedModelColor = savedColor.toLowerCase();
+} catch (_) { /* The colour control also works when browser storage is unavailable. */ }
+
+function syncModelColorControls() {
+  colorInput.value = selectedModelColor;
+  colorValue.textContent = selectedModelColor.toUpperCase();
+  colorPresets.forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.stlColor === selectedModelColor));
+  });
+}
+
+function setModelColor(value) {
+  if (!validModelColor(value)) return;
+  selectedModelColor = value.toLowerCase();
+  if (currentMesh) {
+    currentMesh.material.color.set(selectedModelColor);
+    currentMesh.material.emissive.set(selectedModelColor).multiplyScalar(0.12);
+  }
+  syncModelColorControls();
+  try { localStorage.setItem(MODEL_COLOR_STORAGE_KEY, selectedModelColor); } catch (_) {}
+}
+
+colorInput.addEventListener('input', event => setModelColor(event.target.value));
+colorInput.addEventListener('change', event => setModelColor(event.target.value));
+colorReset.addEventListener('click', () => setModelColor(DEFAULT_MODEL_COLOR));
+colorPresets.forEach(button => {
+  button.addEventListener('click', () => setModelColor(button.dataset.stlColor));
+});
+syncModelColorControls();
 
 /* ── Build sidebar list ─────────────────────────── */
 STL_PARTS.forEach((part, idx) => {
@@ -90,6 +131,7 @@ modal.addEventListener('click', e => { if (e.target === modal) closeStlModal(); 
 document.addEventListener('keydown', e => {
   if (!modal.classList.contains('is-open')) return;
   if (e.key === 'Escape') closeStlModal();
+  if (e.target instanceof HTMLInputElement) return;
   if (e.key === 'ArrowDown') {
     e.preventDefault();
     loadPart((currentPartIdx + 1) % STL_PARTS.length);
@@ -129,11 +171,11 @@ function initThree() {
   dirLight.position.set(120, 200, 150);
   scene.add(dirLight);
 
-  const cyanLight = new THREE.PointLight(0x00e5ff, 2.0, 800);
-  cyanLight.position.set(-150, 120, 100);
-  scene.add(cyanLight);
+  const fillLight = new THREE.PointLight(0xffffff, 2.0, 800);
+  fillLight.position.set(-150, 120, 100);
+  scene.add(fillLight);
 
-  const backLight = new THREE.DirectionalLight(0x00e5ff, 0.4);
+  const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
   backLight.position.set(-100, -100, -100);
   scene.add(backLight);
 
@@ -238,10 +280,10 @@ function loadPart(idx) {
       geometry.center();
 
       const material = new THREE.MeshStandardMaterial({
-        color: 0x00daf3,
+        color: selectedModelColor,
         metalness: 0.3,
         roughness: 0.45,
-        emissive: 0x002233,
+        emissive: new THREE.Color(selectedModelColor).multiplyScalar(0.12),
         emissiveIntensity: 0.2,
       });
 
