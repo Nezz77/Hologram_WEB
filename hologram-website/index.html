@@ -321,6 +321,13 @@
         <h2 class="section-title" id="showcase-title">See It In Action</h2>
         <p class="section-subtitle">Live holographic display demonstrations from the final evaluation day.</p>
       </div>
+      <div class="showcase__playback glass-card" id="showcase-playback" hidden>
+        <label class="showcase__loop-toggle" for="showcase-loop">
+          <input id="showcase-loop" type="checkbox" aria-describedby="showcase-playback-hint" />
+          <span>Loop videos</span>
+        </label>
+        <p id="showcase-playback-hint" role="status">Start all three muted and play on repeat. Use each player for sound or pause.</p>
+      </div>
       <div class="showcase__hero-video glass-card" id="showcase-main-video">
         <video id="main-video" src="assets/videos/demo1.mp4" controls playsinline preload="metadata"
           poster="assets/images/evaluation/1.jpeg"></video>
@@ -632,6 +639,7 @@
   <script src="ui.js"></script>
   <script src="script.js"></script>
   <script src="gallery.js"></script>
+  <script src="showcase.js"></script>
   <script src="stl-viewer.js"></script>
   <script src="electronics-viewer.js"></script>
   <script src="software-viewer.js"></script>
